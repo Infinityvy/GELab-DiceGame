@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static Player[] players = new Player[2];
+
+    
+
     void Start()
     {
-        
+        if (players[0] == null || players[1] == null) /*ERROR*/;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
