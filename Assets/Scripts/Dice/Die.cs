@@ -5,8 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Die : MonoBehaviour
 {
-    public readonly int id = -1;
 
-    public readonly string dieName;
-    public readonly string description;
+    public int id = -1;
+
+    protected int facecount;
+
+    public string dieName;
+    public string description;
 }
