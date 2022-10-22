@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
     public string playerName = "Player";
     public int playerID = -1;
 
+    public Die[,] dieFields = new Die[3, 3];
+    public int[] rowScores { get; protected set; } = new int[3];
+    public int totalScore { get; protected set; } = 0;
+
+
     private Deck activeDeck;
 
     private List<Die> drawSack;
@@ -53,5 +58,26 @@ public class Player : MonoBehaviour
     public void discardDie(Die die) //adds die to discard sack
     {
         discardSack.Add(die);
+    }
+
+    public void calculateScores() //calculates score per row and total score
+    {
+
+        totalScore = 0;
+        for(int x = 0; x < 3; x++)
+        {
+            rowScores[x] = 0;
+
+            for(int y = 0; y < 3; y++)
+            {
+                if(dieFields[x, y] != null)
+                {
+                    dieFields[x, y].calculateActiveScore(dieFields, x, y);
+                    rowScores[x] += dieFields[x, y].activeScore;
+                }
+            }
+
+            totalScore += rowScores[x];
+        }
     }
 }

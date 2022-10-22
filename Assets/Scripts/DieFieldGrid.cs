@@ -4,36 +4,41 @@ using UnityEngine;
 
 public class DieFieldGrid : MonoBehaviour
 {
-    public float fieldGap = 1.0f;
-    public bool alwaysShowGizmos = false;
+    [SerializeField] private float fieldGap = 1.0f;
+    [SerializeField] private bool alwaysShowGizmos = false;
 
     private void OnDrawGizmosSelected()
     {
         if (alwaysShowGizmos) return;
-        Gizmos.color = new Color(0.1f, 0.98f, 0.09f);
-
-        for (int i = 0; i < 9; i++)
-            Gizmos.DrawCube(getFieldPosFromFieldIndex(i), 0.3f * Vector3.one);
+        drawGizmos();
     }
 
     private void OnDrawGizmos()
     {
         if (!alwaysShowGizmos) return;
-        Gizmos.color = new Color(0.1f, 0.98f, 0.09f);
-
-        for (int i = 0; i < 9; i++)
-            Gizmos.DrawCube(getFieldPosFromFieldIndex(i), 0.3f * Vector3.one);
+        drawGizmos();
     }
 
-    private Vector3 getFieldPosFromFieldIndex(int index) //fields in 3x3 numbered 0-8
+    private void drawGizmos()
+    {
+        for(int y = 0; y < 3; y++)
+        {
+            for(int x = 0; x < 3; x++)
+            {
+                if (y == 0 && x == 1) Gizmos.color = Color.red;
+                else Gizmos.color = Color.green;
+                Gizmos.DrawCube(getFieldWorldPosFromFieldMatrixPos(x, y), 0.3f * Vector3.one);
+            }
+        }
+    }
+
+    public Vector3 getFieldWorldPosFromFieldMatrixPos(int x, int y) //fields in 3x3 numbered 0-8
     {
         //offset of the fields from the field grid object (x, z), no y offset
         //(1, 1) (1, 0) (1, -1)
         //(0, 1) (0, 0) (0, -1)
         //(-1, 1)(-1, 0)(-1, -1)
-        int x = index % 3;
-        int y = index / 3;
 
-        return transform.position + new Vector3(1 - y, 0, 1 - x) * fieldGap;
+        return transform.position + transform.rotation * new Vector3(1 - y, 0, 1 - x) * fieldGap;
     }
 }
