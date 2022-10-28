@@ -21,8 +21,8 @@ public class UIMoveDie : MonoBehaviour, IPointerEnterHandler/*, IPointerExitHand
         else
         {
             RectTransform newPosRect = (RectTransform)eventData.pointerEnter.transform;
-            if (newPosRect.position.x < 0) newPos = new Vector2(-8.25f, newPosRect.position.y);
-            else newPos = new Vector2(6.5f, newPosRect.position.y);
+            if (newPosRect.position.x < 0) newPos = new Vector2(-7.5f, newPosRect.position.y);
+            else newPos = new Vector2(4, newPosRect.position.y);
             GameObject.FindGameObjectWithTag("UIDie").transform.position = newPos;
             eventData.selectedObject = eventData.pointerEnter;
         }
