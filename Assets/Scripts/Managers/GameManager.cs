@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     //public
     public static Player[] players = new Player[2];
+    public static GameState gameState;
 
     [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
     [SerializeField] private DiceMesh[] diceMeshPrefabs;
@@ -19,17 +20,67 @@ public class GameManager : MonoBehaviour
         //if (players[0] == null || players[1] == null) return/*ERROR*/;
         activePlayer = players[0];
 
+        gameState = GameState.drawingDice;
+
         TestRollingDice();
     }
 
     void Update()
     {
-        
+        switch(gameState)
+        {
+            case GameState.drawingDice:
+                drawingDiceMode();
+                break;
+            case GameState.rollingDice:
+                rollingDiceMode();
+                break;
+            case GameState.choosingDie:
+                choosingDieMode();
+                break;
+            case GameState.placingDie:
+                placingDieMode();
+                break;
+            case GameState.checkingBoard:
+                checkingBoardMode();
+                break;
+        }
     }
+
+#region Game Loop Methods
+
+    private void drawingDiceMode()
+    {
+
+    }
+
+    private void rollingDiceMode()
+    {
+
+    }
+
+    private void choosingDieMode()
+    {
+
+    }
+
+    private void placingDieMode()
+    {
+
+    }
+
+    private void checkingBoardMode()
+    {
+
+    }
+
+#endregion
 
     private void placeDie(Player player, Die die, int x, int y)
     {
         if (player.dieFields[x, y] != null) return;
+
+        die.transform.position = dieFields[player.playerID].getFieldWorldPosFromFieldMatrixPos(x, y);
 
         player.dieFields[x, y] = die;
     }
@@ -87,4 +138,9 @@ public class DiceMesh
 {
     public string name;
     public GameObject diceMeshPrefab;
+}
+
+public enum GameState
+{
+    drawingDice, rollingDice, choosingDie, placingDie, checkingBoard
 }
