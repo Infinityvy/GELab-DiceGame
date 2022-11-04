@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class UIMoveDie : MonoBehaviour, IPointerEnterHandler/*, IPointerExitHandler*/
+public class UIMoveDie : MonoBehaviour, IPointerEnterHandler
 {
     // Variables
-    private float UIDieVectorX;
     private Vector2 newPos;
 
     // When pointer enters button area
@@ -26,30 +25,5 @@ public class UIMoveDie : MonoBehaviour, IPointerEnterHandler/*, IPointerExitHand
             GameObject.FindGameObjectWithTag("UIDie").transform.position = newPos;
             eventData.selectedObject = eventData.pointerEnter;
         }
-    }
-
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    if (eventData is null)
-    //    {
-    //        throw new ArgumentNullException(nameof(eventData));
-    //    }
-    //    else
-    //    {
-    //        Vector2 newPos = new Vector2(11, 0);
-    //        GameObject.FindGameObjectWithTag("UIDie").transform.position = newPos;
-    //    }
-    //}
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

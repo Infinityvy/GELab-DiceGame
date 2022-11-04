@@ -5,13 +5,7 @@ using UnityEngine;
 public class UIRotateDie : MonoBehaviour
 {
     Vector3 rotVec = new Vector3(5, 10, 0);
-    public float rotationSpeed = 5;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float rotationSpeed;
 
     // Update is called once per frame
     void Update()
