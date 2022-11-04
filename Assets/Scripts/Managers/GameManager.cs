@@ -5,46 +5,31 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //public
-    public static Player[] players = new Player[2];
-    public static GameState gameState;
+    //public static GameManager activeManager;
+
+    public GameState gameState;
+    public Player[] players = new Player[2];
+    public int activePlayerID = 0;
+    public Player activePlayer;
+
+    public GameState[] gameStates;
 
     [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
     [SerializeField] private DiceMesh[] diceMeshPrefabs;
 
     //private
-    private byte activePlayerID = 0;
-    private Player activePlayer;
 
     void Start()
     {
         //if (players[0] == null || players[1] == null) return/*ERROR*/;
         activePlayer = players[0];
 
-        gameState = GameState.drawingDice;
-
         TestRollingDice();
     }
 
     void Update()
     {
-        switch(gameState)
-        {
-            case GameState.drawingDice:
-                drawingDiceMode();
-                break;
-            case GameState.rollingDice:
-                rollingDiceMode();
-                break;
-            case GameState.choosingDie:
-                choosingDieMode();
-                break;
-            case GameState.placingDie:
-                placingDieMode();
-                break;
-            case GameState.checkingBoard:
-                checkingBoardMode();
-                break;
-        }
+
     }
 
 #region Game Loop Methods
@@ -138,9 +123,4 @@ public class DiceMesh
 {
     public string name;
     public GameObject diceMeshPrefab;
-}
-
-public enum GameState
-{
-    drawingDice, rollingDice, choosingDie, placingDie, checkingBoard
 }
