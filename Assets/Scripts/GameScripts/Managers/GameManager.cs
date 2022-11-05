@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
     [SerializeField] private DiceMesh[] diceMeshPrefabs;
 
+
+    private Die testDie;
+    private Die testDie2;
+
     //private
 
     void Start()
@@ -24,7 +28,8 @@ public class GameManager : MonoBehaviour
         //if (players[0] == null || players[1] == null) return/*ERROR*/;
         activePlayer = players[0];
 
-        TestRollingDice();
+        //TestRollingDice();
+        //TestIdleDice();
     }
 
     void Update()
@@ -78,9 +83,6 @@ public class GameManager : MonoBehaviour
         player.dieFields[x, y] = null;
     }
 
-    Die testDie;
-    Die testDie2;
-
     private void TestRollingDice()
     {
         Vector3 spawnPos = new Vector3(0, 4, -8);
@@ -92,6 +94,17 @@ public class GameManager : MonoBehaviour
         testDie2.roll(Vector3.forward * 10, Vector3.one * 40);
 
         InvokeRepeating("readDiceData", 0.5f, 0.5f);
+    }
+
+    private void TestIdleDice()
+    {
+        Vector3 spawnPos = new Vector3(0, 4, 0);
+
+        testDie = Instantiate(diceMeshPrefabs[0].diceMeshPrefab, spawnPos, Quaternion.identity).AddComponent<Die_Normal_Default_D6>();
+        testDie2 = Instantiate(diceMeshPrefabs[1].diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).AddComponent<Die_Normal_Midroll_D4>();
+
+        testDie.setIdleRotation(true);
+        testDie2.setIdleRotation(true);
     }
 
     private void readDiceData()

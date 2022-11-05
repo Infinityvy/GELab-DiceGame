@@ -5,10 +5,6 @@ using UnityEngine;
 
 public abstract class Die : MonoBehaviour
 {
-    //static
-    protected static float minVelocityThreshold = 0.1f; //if a die's velocity is lower than this value it will count as not moving; currently unused
-    protected static float minAngularVelocityThreshold = 0.1f; //if a die's angualr velocity is lower than this value it will count as not rotating; currently unused
-
     //public
     public virtual int id { get; } = -1;
 
@@ -35,6 +31,10 @@ public abstract class Die : MonoBehaviour
     }
     protected bool _rollModeEnabled = false;
 
+    protected bool idleRotationEnabled = false;
+    protected float rotationSpeed = 40;
+    protected Vector3 rotVector;
+
     protected Rigidbody dieRigidbody;
 
 
@@ -44,6 +44,13 @@ public abstract class Die : MonoBehaviour
         init();
     }
 
+    private void Update()
+    {
+        if(idleRotationEnabled)
+        {
+            transform.Rotate(rotVector * Time.deltaTime);
+        }
+    }
 
     public virtual void init() //initializes the die
     {
@@ -62,8 +69,6 @@ public abstract class Die : MonoBehaviour
 
     public bool hasStoppedMoving() //returns true if the die has stopped moving and rotating
     {
-        //bool stoppedMoving = dieRigidbody.velocity.magnitude < minVelocityThreshold && 
-        //       dieRigidbody.angularVelocity.magnitude < minAngularVelocityThreshold;
 
        bool stoppedMoving = dieRigidbody.IsSleeping(); //might not work; if it doesnt use code above instead
 
@@ -87,6 +92,25 @@ public abstract class Die : MonoBehaviour
         {
             if (y1 == y) continue;
             else if (dieFields[x, y1].activeFaceValue == activeFaceValue) activeScore += activeFaceValue;
+        }
+    }
+
+    public void setIdleRotation(bool state)
+    {
+        idleRotationEnabled = state;
+        transform.rotation = Quaternion.identity;
+
+        if(state)
+        {
+            int xFac = 0;
+            int zFac = 0;
+            while (xFac == 0 && zFac == 0)
+            {
+                xFac = Random.Range(-1, 2);
+                zFac = Random.Range(-1, 2);
+            }
+
+            rotVector = new Vector3(rotationSpeed * xFac, rotationSpeed, rotationSpeed * zFac);
         }
     }
 }

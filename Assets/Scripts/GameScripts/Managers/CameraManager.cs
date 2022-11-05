@@ -1,0 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public struct CameraPosition
+{
+    public string name;
+    public Vector3 pos;
+    public Vector3 rot;
+}
+
+public class CameraManager : MonoBehaviour
+{
+    public static CameraManager cam;
+
+    public CameraPosition[] positions;
+
+    private CameraPosition currentPosition;
+
+    private void Start()
+    {
+        cam = this;
+        setPositionByName("Player1");
+    }
+
+    private void Update()
+    {
+
+    }
+
+    public void setPositionByName(string name) //returns false if position does not exist
+    {
+        for (int i = 0; i < positions.Length; i++)
+        {
+            if(positions[i].name == name)
+            {
+                setPositionByIndex(i);
+                return;
+            }
+        }
+
+        throw new System.Exception("No Camera Position with the name " + name + " found.");
+    }
+
+    public void setPositionByIndex(int index)
+    {
+        currentPosition = positions[index];
+
+        transform.position = positions[index].pos;
+        transform.rotation = Quaternion.Euler(positions[index].rot);
+    }
+}
