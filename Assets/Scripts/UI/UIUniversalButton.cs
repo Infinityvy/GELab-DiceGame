@@ -16,9 +16,9 @@ public class UIUniversalButton : MonoBehaviour
     {
         if (die != null) {
             float objectWidth = GetComponent<RectTransform>().rect.width;
-            float newX = transform.position.x - objectWidth / 200 - 0.8f; // die breite bekomme ich nicht hin.
-            float newY = transform.position.y;
-            die.transform.position = new Vector2(newX, newY);
+            float newX = transform.localPosition.x - objectWidth / 2 - 100;
+            float newY = transform.localPosition.y;
+            die.transform.localPosition = new Vector2(newX, newY);
         }
     }
 }
