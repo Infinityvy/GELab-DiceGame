@@ -6,21 +6,19 @@ public class UIUniversalButton : MonoBehaviour
 {
     public void gotoMenu(GameObject menu)
     {
-        menu.SetActive(true);
-        transform.parent.gameObject.SetActive(false);
+        if (menu != null) {
+            menu.SetActive(true);
+            transform.parent.gameObject.SetActive(false);
+        }
     }
-
-    public float distance;
 
     public void moveDie(GameObject die)
     {
-        RectTransform thisRect = GetComponent<RectTransform>();
-        float newX = thisRect.position.x; 
-        float newY = thisRect.position.y;
-        Vector2 dieRect = Camera.current.WorldToScreenPoint(new Vector2(newX, newY));
-        Debug.Log(dieRect);
-        dieRect.x -= thisRect.rect.width / 2;
-        Debug.Log(thisRect.rect.width);
-        die.transform.position = Camera.current.ScreenToWorldPoint(dieRect) + Vector3.forward * 10;
+        if (die != null) {
+            float objectWidth = GetComponent<RectTransform>().rect.width;
+            float newX = transform.position.x - objectWidth / 200 - 0.8f; // die breite bekomme ich nicht hin.
+            float newY = transform.position.y;
+            die.transform.position = new Vector2(newX, newY);
+        }
     }
 }
