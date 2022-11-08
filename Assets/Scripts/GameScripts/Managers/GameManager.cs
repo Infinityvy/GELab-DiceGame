@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //public
-    //public static GameManager activeManager;
 
     public GameState gameState;
     public Player[] players = new Player[2];
@@ -15,11 +14,11 @@ public class GameManager : MonoBehaviour
     public GameState[] gameStates;
 
     [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
-    [SerializeField] private DiceMesh[] diceMeshPrefabs;
+    [SerializeField] private DiceMesh[] diceMeshes;
 
 
-    private Die testDie;
-    private Die testDie2;
+    private Die testDie_D6;
+    private Die testDie_D4;
 
     //private
 
@@ -36,35 +35,6 @@ public class GameManager : MonoBehaviour
     {
 
     }
-
-#region Game Loop Methods
-
-    private void drawingDiceMode()
-    {
-
-    }
-
-    private void rollingDiceMode()
-    {
-
-    }
-
-    private void choosingDieMode()
-    {
-
-    }
-
-    private void placingDieMode()
-    {
-
-    }
-
-    private void checkingBoardMode()
-    {
-
-    }
-
-#endregion
 
     private void placeDie(Player player, Die die, int x, int y)
     {
@@ -87,11 +57,14 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spawnPos = new Vector3(0, 4, -8);
 
-        testDie = Instantiate(diceMeshPrefabs[0].diceMeshPrefab, spawnPos, Quaternion.identity).AddComponent<Die_Normal_Default_D6>();
-        testDie2 = Instantiate(diceMeshPrefabs[1].diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).AddComponent<Die_Normal_Midroll_D4>();
+        testDie_D6 = new Die_Normal_Default_D6();
+        testDie_D6.init_Transform(Instantiate(diceMeshes[0].diceMeshPrefab, spawnPos, Quaternion.identity).transform);
 
-        testDie.roll(Vector3.forward * 20, Vector3.one * 20);
-        testDie2.roll(Vector3.forward * 10, Vector3.one * 40);
+        testDie_D4 = new Die_Normal_Midroll_D4();
+        testDie_D4.init_Transform(Instantiate(diceMeshes[1].diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).transform);
+
+        testDie_D6.roll(Vector3.forward * 20, Vector3.one * 20);
+        testDie_D4.roll(Vector3.forward * 10, Vector3.one * 40);
 
         InvokeRepeating("readDiceData", 0.5f, 0.5f);
     }
@@ -100,34 +73,25 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spawnPos = new Vector3(0, 4, 0);
 
-        testDie = Instantiate(diceMeshPrefabs[0].diceMeshPrefab, spawnPos, Quaternion.identity).AddComponent<Die_Normal_Default_D6>();
-        testDie2 = Instantiate(diceMeshPrefabs[1].diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).AddComponent<Die_Normal_Midroll_D4>();
 
-        testDie.setIdleRotation(true);
-        testDie2.setIdleRotation(true);
+        testDie_D6 = new Die_Normal_Default_D6();
+        testDie_D6.init_Transform(Instantiate(getDiceMeshByName("D6_Default").diceMeshPrefab, spawnPos, Quaternion.identity).transform);
+
+        testDie_D4 = new Die_Normal_Midroll_D4();
+        testDie_D4.init_Transform(Instantiate(getDiceMeshByName("D4_Default").diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).transform);
+
+        testDie_D6.setIdleRotation(true);
+        testDie_D4.setIdleRotation(true);
     }
 
-    private void readDiceData()
+    private DiceMesh getDiceMeshByName(string name) //returns null if nothing was found
     {
-        if(testDie.hasStoppedMoving())
+        for(int i = 0; i < diceMeshes.Length; i++)
         {
-            Debug.Log(testDie.activeFaceValue);
-            
-        }
-        else
-        {
-            Debug.Log("Die is moving with velocity: " + testDie.GetComponent<Rigidbody>().velocity);
+            if (diceMeshes[i].name == name) return diceMeshes[i];
         }
 
-        if (testDie2.hasStoppedMoving())
-        {
-            Debug.Log(testDie2.activeFaceValue);
-
-        }
-        else
-        {
-            Debug.Log("Die is moving with velocity: " + testDie2.GetComponent<Rigidbody>().velocity);
-        }
+        throw new System.Exception("No mesh with name " + name + " found.");
     }
 }
 

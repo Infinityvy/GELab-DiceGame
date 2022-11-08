@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class GameState : MonoBehaviour
 {
-    public abstract void init(GameManager gm);
+    public abstract void init();
 }

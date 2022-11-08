@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6be78c39a77f8469f26a70eb33c32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  cameraManager: {fileID: 0}
 --- !u!1 &331869667
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +566,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: fieldGap
-      value: 1.14
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591162, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_Name
@@ -576,11 +578,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591163, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591163, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591163, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -827,10 +829,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positions:
-  - name: Player1
+  - name: Player0
     pos: {x: -45, y: 12, z: 0}
     rot: {x: 10, y: 90, z: 0}
-  - name: Player2
+  - name: Player1
     pos: {x: 45, y: 12, z: 0}
     rot: {x: 10, y: -90, z: 0}
 --- !u!1 &1994939174
@@ -968,7 +970,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: fieldGap
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: alwaysShowGizmos
@@ -988,11 +990,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591163, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591163, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 966460921377591163, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: m_LocalPosition.z

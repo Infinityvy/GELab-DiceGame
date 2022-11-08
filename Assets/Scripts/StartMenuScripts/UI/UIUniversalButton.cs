@@ -15,9 +15,9 @@ public class UIUniversalButton : MonoBehaviour
     public void moveDie(Transform die)
     {
         if (die != null) {
-            float objectWidth = GetComponent<RectTransform>().rect.width * GetComponentInParent<Canvas>().transform.localScale.x;
-            float newX = GetComponent<RectTransform>().position.x - objectWidth / 2;
-            float newY = GetComponent<RectTransform>().position.y;
+            float objectWidth = GetComponent<RectTransform>().rect.x * GetComponentInParent<Canvas>().transform.localScale.x;
+            float newX = transform.position.x - objectWidth / 2;
+            float newY = transform.position.y;
             die.position = Camera.main.ScreenToWorldPoint(new Vector3(newX, newY, 10)) + Vector3.left;
         }
     }

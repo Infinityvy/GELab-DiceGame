@@ -5,6 +5,7 @@ using UnityEngine;
 public class Die_Normal_Default_D6 : Die
 {
     public override int id { get; } = 0;
+    public override string meshName { get; } = "D6_Default";
     public override string dieName { get; } = "Common D6";
     public override string description { get; } = "A basic 6-sided die./nFace values: 1-2-3-4-5-6";
 

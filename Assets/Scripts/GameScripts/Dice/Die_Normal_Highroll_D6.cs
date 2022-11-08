@@ -5,6 +5,7 @@ using UnityEngine;
 public class Die_Normal_Highroll_D6 : Die
 {
     public override int id { get; } = 1;
+    public override string meshName { get; } = "D6_Default";
     public override string dieName { get; } = "High Roller D6";
     public override string description { get; } = "Two 6-sides with the risk of getting a low-roll./nFace values: 1-1-2-3-6-6";
 

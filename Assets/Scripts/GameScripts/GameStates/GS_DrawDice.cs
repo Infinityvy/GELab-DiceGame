@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class GS_DrawDice : GameState
 {
-    private GameManager gameManager;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private CameraManager cameraManager;
     private Player activePlayer;
 
     private Die[] drawnDice;
 
-    public override void init(GameManager gm)
+    public override void init()
     {
-
-        gameManager = gm;
         activePlayer = gameManager.activePlayer;
-
+        
         drawnDice = new Die[3];
+
 
         for (int i = 0; i < drawnDice.Length; i++)
         {
             drawnDice[i] = activePlayer.drawDie();
             drawnDice[i].setIdleRotation(true);
+            drawnDice[i].transform.position = Quaternion.Euler(cameraManager.currentPosition.rot) * Vector3.back + cameraManager.currentPosition.pos
+                                              + Vector3.left * 0.5f * drawnDice.Length + i * Vector3.right;
         }
 
 

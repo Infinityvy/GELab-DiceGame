@@ -5,6 +5,7 @@ using UnityEngine;
 public class Die_Normal_Midroll_D4 : Die
 {
     public override int id { get; } = 3;
+    public override string meshName { get; } = "D4_Default";
     public override string dieName { get; } = "Mid Roller D4";
     public override string description { get; } = "A very average rolling die. Prevents low rolls at the cost of no high rolls. When rolled the bottom face is counts.\nFace values: 2-3-4-5";
 

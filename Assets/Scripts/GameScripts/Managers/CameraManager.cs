@@ -16,7 +16,7 @@ public class CameraManager : MonoBehaviour
 
     public CameraPosition[] positions;
 
-    private CameraPosition currentPosition;
+    public CameraPosition currentPosition { get; private set; }
 
     private void Start()
     {

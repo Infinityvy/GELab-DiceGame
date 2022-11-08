@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class Die : MonoBehaviour
+public abstract class Die
 {
     //public
-    public virtual int id { get; } = -1;
-
-    public virtual string dieName { get; } = "NULL";
-    public virtual string description { get; } = "NULL";
+    public abstract int id { get; } //id of the die
+    public abstract string meshName { get; } //name of the mesh the die wants to use
+    public abstract string dieName { get; } //display name of the die
+    public abstract string description { get; } //description of the die
 
     public int activeScore { get; protected set; } = -1;
     public int activeFaceValue { get; protected set; } = -1;
 
+    public Transform transform;
+    public bool transformInitiated { get; protected set; } = false;
 
     //protected
-    protected virtual int facecount { get; } = -1;
+    protected abstract int facecount { get; }
 
     protected bool rollModeEnabled 
     { 
@@ -39,10 +41,6 @@ public abstract class Die : MonoBehaviour
 
 
     //methods
-    public void Awake()
-    {
-        init();
-    }
 
     private void Update()
     {
@@ -52,10 +50,22 @@ public abstract class Die : MonoBehaviour
         }
     }
 
-    public virtual void init() //initializes the die
+    public virtual void init_Transform(Transform dieTransform) //initializes the die transform
     {
-        dieRigidbody = GetComponent<Rigidbody>();
-        rollModeEnabled = false;
+        if (dieTransform == null) throw new System.NullReferenceException();
+        else
+        {
+            transformInitiated = true;
+            transform = dieTransform;
+            dieRigidbody = transform.GetComponent<Rigidbody>();
+            rollModeEnabled = false;
+        }
+
+    }
+
+    public virtual void init_Transform() //initializes the die transform generated from the die's mesh name
+    {
+        init_Transform((Transform) Resources.Load(meshName + "_Pref"));
     }
 
     public virtual void roll(Vector3 force, Vector3 torque) //applies force and torque to the die's rigidbody
@@ -79,11 +89,7 @@ public abstract class Die : MonoBehaviour
         return stoppedMoving;
     }
 
-    protected virtual void setActiveFaceValue()
-    {
-        //override this probably
-    }
-
+    protected abstract void setActiveFaceValue();
     public virtual void calculateActiveScore(Die[,] dieFields, int x, int y) //default calulation. adds face value on active score for each duplicate face value in the row; 
     {                                                                        //override to customize score calculation
         activeScore = activeFaceValue;
