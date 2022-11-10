@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         cam = this;
-        setPositionByName("Player1");
+        setPositionByName("Player0");
     }
 
     private void Update()

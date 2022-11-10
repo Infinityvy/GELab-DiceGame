@@ -27,7 +27,7 @@ public class DieFieldGrid : MonoBehaviour
             {
                 if (y == 0 && x == 1) Gizmos.color = Color.red;
                 else Gizmos.color = Color.green;
-                Gizmos.DrawCube(getFieldWorldPosFromFieldMatrixPos(x, y), 0.3f * Vector3.one);
+                Gizmos.DrawCube(getFieldWorldPosFromFieldMatrixPos(x, y), Vector3.one);
             }
         }
     }

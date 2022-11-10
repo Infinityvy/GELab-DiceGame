@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dd5181e721695d44eab04c770eddd3af
+guid: 556e3aeb7b1bc3d4387b1187ab7a4870
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,43 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: DieEdgeMat
-    second: {fileID: 2100000, guid: bb9b7c906e4f0c44086300e123f188de, type: 2}
+      name: BowlMat
+    second: {fileID: 2100000, guid: 21eeff316586bbe4ab1cab16e6130170, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: DieGlow
-    second: {fileID: 2100000, guid: 1fe6e51087447af4882e70b910c013f1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DieInnerFaceMat
-    second: {fileID: 2100000, guid: 3187392d9e8ed5442b716ba585126f32, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DieOuterFaceMat
-    second: {fileID: 2100000, guid: 41275a2865b60b245964e7f9ada63b9f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FaceMat
-    second: {fileID: 2100000, guid: 3187392d9e8ed5442b716ba585126f32, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Glow
-    second: {fileID: 2100000, guid: 1fe6e51087447af4882e70b910c013f1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MiddleOuterRimMat
-    second: {fileID: 2100000, guid: 41275a2865b60b245964e7f9ada63b9f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: OutsideMat
-    second: {fileID: 2100000, guid: bb9b7c906e4f0c44086300e123f188de, type: 2}
+      name: TableMat
+    second: {fileID: 2100000, guid: f264554f15df3fc408d6b0f4535a75e4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
