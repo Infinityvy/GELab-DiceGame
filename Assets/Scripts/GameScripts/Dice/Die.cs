@@ -33,22 +33,11 @@ public abstract class Die
     }
     protected bool _rollModeEnabled = false;
 
-    protected bool idleRotationEnabled = false;
-    protected float rotationSpeed = 40;
-    protected Vector3 rotVector;
-
+    protected DieObject dieObject;
     protected Rigidbody dieRigidbody;
 
 
     //methods
-
-    private void Update()
-    {
-        if(idleRotationEnabled)
-        {
-            transform.Rotate(rotVector * Time.deltaTime);
-        }
-    }
 
     public virtual void init_Transform(Transform dieTransform) //initializes the die transform
     {
@@ -57,6 +46,7 @@ public abstract class Die
         {
             transformInitiated = true;
             transform = dieTransform;
+            dieObject = transform.GetComponent<DieObject>();
             dieRigidbody = transform.GetComponent<Rigidbody>();
             rollModeEnabled = false;
         }
@@ -65,7 +55,13 @@ public abstract class Die
 
     public virtual void init_Transform() //initializes the die transform generated from the die's mesh name
     {
-        init_Transform((Transform) Resources.Load(meshName + "_Pref"));
+        init_Transform(MonoBehaviour.Instantiate(((GameObject)Resources.Load(meshName + "_Pref")).transform, Vector3.zero, Quaternion.identity));
+    }
+
+    public virtual void clear_Transform() //destroys the connected transform and severs the connection
+    {
+        GameObject.Destroy(transform);
+        transformInitiated = false;
     }
 
     public virtual void roll(Vector3 force, Vector3 torque) //applies force and torque to the die's rigidbody
@@ -103,20 +99,6 @@ public abstract class Die
 
     public void setIdleRotation(bool state)
     {
-        idleRotationEnabled = state;
-        transform.rotation = Quaternion.identity;
-
-        if(state)
-        {
-            int xFac = 0;
-            int zFac = 0;
-            while (xFac == 0 && zFac == 0)
-            {
-                xFac = Random.Range(-1, 2);
-                zFac = Random.Range(-1, 2);
-            }
-
-            rotVector = new Vector3(rotationSpeed * xFac, rotationSpeed, rotationSpeed * zFac);
-        }
+        dieObject.setIdleRotation(state);
     }
 }

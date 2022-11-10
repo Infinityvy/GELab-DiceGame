@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player
 {
     public string playerName = "Player";
     public int playerID = -1;
@@ -17,15 +17,16 @@ public class Player : MonoBehaviour
     private List<Die> drawSack;
     private List<Die> discardSack;
 
-    void Start()
+    public Player()
     {
-        
-    }
+        activeDeck = new Deck();
 
-
-    void Update()
-    {
-        
+        for(int i = 0; i < 5; i++)
+        {
+            activeDeck.addDie(new Die_Normal_Default_D6());
+            activeDeck.addDie(new Die_Normal_Highroll_D6());
+            activeDeck.addDie(new Die_Normal_Midroll_D4());
+        }
     }
 
     public void initDicePiles() //fills draw pile with active deck and empties discard pile

@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6be78c39a77f8469f26a70eb33c32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  cameraManager: {fileID: 0}
+  gameManager: {fileID: 1994939176}
+  cameraManager: {fileID: 1868434408}
 --- !u!1 &331869667
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,11 +899,7 @@ MonoBehaviour:
   dieFields:
   - {fileID: 966460921062693917}
   - {fileID: 1655757658}
-  diceMeshPrefabs:
-  - name: D6_Default
-    diceMeshPrefab: {fileID: 3850744655704301523, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
-  - name: D4_Default
-    diceMeshPrefab: {fileID: 3336624724905895506, guid: fdf148533e77cd04c8d7097481a85318, type: 3}
+  diceMeshes: []
 --- !u!1001 &2044558004
 PrefabInstance:
   m_ObjectHideFlags: 0

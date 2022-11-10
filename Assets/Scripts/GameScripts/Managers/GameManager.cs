@@ -25,10 +25,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //if (players[0] == null || players[1] == null) return/*ERROR*/;
+        players[0] = new Player();
+        players[0].initDicePiles();
+        players[1] = new Player();
+        players[1].initDicePiles();
+
         activePlayer = players[0];
 
         //TestRollingDice();
         //TestIdleDice();
+        gameStates[0].init();
     }
 
     void Update()
