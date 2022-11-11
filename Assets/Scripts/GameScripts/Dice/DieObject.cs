@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DieObject : MonoBehaviour
 {
+    public TextMeshPro[] numbers; //front, back, top, bottom, right, left
+
     protected bool idleRotationEnabled = false;
     protected float rotationSpeed = 40;
     protected Vector3 rotVector;

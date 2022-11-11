@@ -71,11 +71,6 @@ public class GS_DrawDice : GameState
                 if(i == drawnDice.Length - 1 && Vector3.Distance(drawnDice[i].transform.position, getTargetPosition(i)) < 0.001f)
                 {
                     CancelInvoke();
-
-                    //for (int j = 0; j < drawnDice.Length; j++)
-                    //{
-                    //    drawnDice[j].setIdleRotation(true);
-                    //}
                 }
 
                 drawnDice[i].transform.position = Vector3.Lerp(spawnPos, getTargetPosition(i), animationSpeed * iterationsSinceAnimationStart[i]);

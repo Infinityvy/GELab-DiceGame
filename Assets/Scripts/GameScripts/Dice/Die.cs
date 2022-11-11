@@ -49,8 +49,9 @@ public abstract class Die
             dieObject = transform.GetComponent<DieObject>();
             dieRigidbody = transform.GetComponent<Rigidbody>();
             rollModeEnabled = false;
-        }
 
+            setFaceNumbers();
+        }
     }
 
     public virtual void init_Transform() //initializes the die transform generated from the die's mesh name
@@ -63,6 +64,8 @@ public abstract class Die
         GameObject.Destroy(transform);
         transformInitiated = false;
     }
+
+    protected abstract void setFaceNumbers();
 
     public virtual void roll(Vector3 force, Vector3 torque) //applies force and torque to the die's rigidbody
     {

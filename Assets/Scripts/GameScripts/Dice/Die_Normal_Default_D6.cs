@@ -13,8 +13,8 @@ public class Die_Normal_Default_D6 : Die
 
     protected override void setActiveFaceValue() //calculates top face by comparing the height of the center point of all faces; highest point is the top face; sets face value accordingly
     {
-        //faces in order: up (y = 1), down (y = -1), left (x = -1), right (x = 1), front (z = 1), back (z = -1)
-        //face value is   1           6              2              5              3              4
+        //faces in order: top (y = 1), bottom (y = -1), left (x = -1), right (x = 1), front (z = 1), back (z = -1)
+        //face value is   1            6                2              5              3              4
 
         int highest = 1;
         float y = (transform.rotation * Vector3.up).y; //we assume the up face is on top by default.
@@ -55,5 +55,15 @@ public class Die_Normal_Default_D6 : Die
         }
 
         activeFaceValue = highest;
+    }
+
+    protected override void setFaceNumbers()
+    {
+        dieObject.numbers[0].text = "1"; //top
+        dieObject.numbers[1].text = "6"; //bottom
+        dieObject.numbers[2].text = "5"; //right
+        dieObject.numbers[3].text = "2"; //left
+        dieObject.numbers[4].text = "3"; //front
+        dieObject.numbers[5].text = "4"; //back
     }
 }

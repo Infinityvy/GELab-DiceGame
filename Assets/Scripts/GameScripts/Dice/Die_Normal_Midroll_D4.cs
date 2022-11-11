@@ -13,20 +13,20 @@ public class Die_Normal_Midroll_D4 : Die
 
     protected override void setActiveFaceValue() //calculates bottom face by comparing the height of the center point of all faces; lowest point is the bottom face; sets face value accordingly
     {
-        //faces in order: front (y = 1), left (y = -1), right (x = -1), bottom (x = 1)
+        //faces in order: back (z = -1), left (x = -1), right (x = 1), bottom (y = -1)
         //face value is   2              3              4               5
 
         int lowest = 2;
-        float y = (transform.rotation * Quaternion.Euler(-20f, 0f, 0f) * Vector3.forward).y; //we assume the front face is on top by default.
+        float y = (transform.rotation * Quaternion.Euler(20f, 0f, 0f) * Vector3.back).y; //we assume the front face is on top by default.
 
-        float currentY = (transform.rotation * Quaternion.Euler(0f, -20f, -20f) * Vector3.left).y; //default left face
+        float currentY = (transform.rotation * Quaternion.Euler(0f, 20f, -20f) * Vector3.left).y; //default left face
         if (currentY < y)
         {
             y = currentY;
             lowest = 3;
         }
 
-        currentY = (transform.rotation * Quaternion.Euler(0f, 20f, 20f) * Vector3.right).y; //default right face
+        currentY = (transform.rotation * Quaternion.Euler(0f, -20f, 20f) * Vector3.right).y; //default right face
         if (currentY < y)
         {
             y = currentY;
@@ -41,5 +41,13 @@ public class Die_Normal_Midroll_D4 : Die
         }
 
         activeFaceValue = lowest;
+    }
+
+    protected override void setFaceNumbers()
+    {
+        dieObject.numbers[0].text = "5"; //bottom
+        dieObject.numbers[1].text = "2"; //back
+        dieObject.numbers[2].text = "4"; //right
+        dieObject.numbers[3].text = "3"; //left
     }
 }
