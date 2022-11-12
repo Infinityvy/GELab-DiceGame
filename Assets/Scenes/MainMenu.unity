@@ -153,6 +153,7 @@ Transform:
   m_Children:
   - {fileID: 1555254014}
   - {fileID: 287840199}
+  - {fileID: 712998346}
   m_Father: {fileID: 141101707}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -462,11 +463,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.9274032
+      value: -3.9274287
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.305275
+      value: 2.305288
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -620,8 +621,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3d07ee1bdafdb5c46a30609651fd0fb8, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -828,17 +829,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bd5c5c3e5a56501419b8b1100d8f6795, type: 2}
+  m_sharedMaterial: {fileID: -5095048582271607225, guid: bd5c5c3e5a56501419b8b1100d8f6795, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -855,13 +856,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1099,8 +1100,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3d07ee1bdafdb5c46a30609651fd0fb8, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1262,31 +1263,31 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 93899461}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.35
+      value: 0.59050965
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.35
+      value: 0.59050965
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.35
+      value: 0.59050965
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.182312
+      value: -878.7082
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 367.90625
+      value: 80.826004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 96d9bc9c399eca34d950256fa8d0f537, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1375,11 +1376,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0837249
+      value: 0.083720066
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.565381
+      value: -2.5653558
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1868,17 +1869,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: CREDITS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bd5c5c3e5a56501419b8b1100d8f6795, type: 2}
+  m_sharedMaterial: {fileID: -5095048582271607225, guid: bd5c5c3e5a56501419b8b1100d8f6795, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1895,8 +1896,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2079,17 +2080,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: QUIT GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bd5c5c3e5a56501419b8b1100d8f6795, type: 2}
+  m_sharedMaterial: {fileID: -5095048582271607225, guid: bd5c5c3e5a56501419b8b1100d8f6795, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2106,8 +2107,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2212,11 +2213,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.613352
+      value: 5.6133633
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3884457
+      value: 1.388435
       objectReference: {fileID: 0}
     - target: {fileID: 4484256400898082153, guid: 6a52c415eafcb0a43a18ed12fbf60f6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2393,8 +2394,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3d07ee1bdafdb5c46a30609651fd0fb8, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
