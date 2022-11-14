@@ -7,7 +7,7 @@ public class Player
     public string playerName = "Player";
     public int playerID = -1;
 
-    public Die[,] dieFields = new Die[3, 3];
+    public Die[,] dieFields = new Die[GameManager.gridSize, GameManager.gridSize];
     public int[] rowScores { get; protected set; } = new int[3];
     public int totalScore { get; protected set; } = 0;
 
@@ -17,9 +17,10 @@ public class Player
     private List<Die> drawSack;
     private List<Die> discardSack;
 
-    public Player()
+    public Player(int ID)
     {
         activeDeck = new Deck();
+        playerID = ID;
 
         for(int i = 0; i < 5; i++)
         {

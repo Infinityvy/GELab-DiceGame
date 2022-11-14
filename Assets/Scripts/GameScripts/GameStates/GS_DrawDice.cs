@@ -77,4 +77,8 @@ public class GS_DrawDice : GameState
             }
         }
     }
+
+    public override void exit() {
+        throw new System.NotImplementedException();
+    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //public
-
+    public static int gridSize = 3;
     public GameState gameState;
     public Player[] players = new Player[2];
     public int activePlayerID = 0;
@@ -25,16 +25,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //if (players[0] == null || players[1] == null) return/*ERROR*/;
-        players[0] = new Player();
+        players[0] = new Player(0);
         players[0].initDicePiles();
-        players[1] = new Player();
+        players[1] = new Player(1);
         players[1].initDicePiles();
 
         activePlayer = players[0];
 
         //TestRollingDice();
         //TestIdleDice();
-        gameStates[0].init();
+        testDie_D6 = new Die_Normal_Default_D6();
+        testDie_D6.init_Transform();
+        ((GS_PlaceDice)gameStates[3]).activeDie = testDie_D6;
+        gameStates[3].init();
     }
 
     void Update()
