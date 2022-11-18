@@ -34,24 +34,15 @@ public class GameManager : MonoBehaviour
 
         //TestRollingDice();
         //TestIdleDice();
-        testDie_D6 = new Die_Normal_Default_D6();
-        testDie_D6.init_Transform();
-        ((GS_PlaceDice)gameStates[3]).activeDie = testDie_D6;
-        gameStates[3].init();
+        //testDie_D6 = new Die_Normal_Default_D6();
+        //testDie_D6.init_Transform();
+        //((GS_PlaceDice)gameStates[3]).activeDie = testDie_D6;
+        gameStates[0].init();
     }
 
     void Update()
     {
 
-    }
-
-    private void placeDie(Player player, Die die, int x, int y)
-    {
-        if (player.dieFields[x, y] != null) return;
-
-        die.transform.position = dieFields[player.playerID].getFieldWorldPosFromFieldMatrixPos(x, y);
-
-        player.dieFields[x, y] = die;
     }
 
     private void removeDie(Player player, int x, int y)

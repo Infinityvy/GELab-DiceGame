@@ -1,22 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GS_DrawDice : GameState
 {
     [SerializeField] private GameManager gameManager;
     [SerializeField] private CameraManager cameraManager;
-    private Player activePlayer;
+    [SerializeField] private Player activePlayer;
+    [SerializeField] private GameObject ui_DrawDie;
+    [SerializeField] private GameObject rollButton;
+
+    private bool initialized = false;
 
     private Die[] drawnDice;
     private bool[] diceToAnimate;
     private float gapSize = 1.5f;
 
+
+    //animation
     private float animationDelay = 0.2f;
     private float animationSpeed = 0.01f;
     private int[] iterationsSinceAnimationStart;
 
     private Vector3 spawnPos = new Vector3(0, -10, -30);
+
+    //tooltip
+    [SerializeField] private Transform tooltip;
+    private Vector3 buttPos;
 
     public override void init()
     {
@@ -41,7 +53,25 @@ public class GS_DrawDice : GameState
             drawnDice[i].transform.position = spawnPos;
         }
 
+        buttPos = rollButton.transform.position;
+
         StartCoroutine("animateDraw");
+
+        ui_DrawDie.SetActive(true);
+
+        initialized = true;
+    }
+    public override void exit()
+    {
+        initialized = false;
+        ui_DrawDie.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (!initialized) return;
+
+        highlightDie();
     }
 
     private Vector3 getTargetPosition(int i)
@@ -77,8 +107,27 @@ public class GS_DrawDice : GameState
             }
         }
     }
+    private void highlightDie()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.x - drawnDice[0].transform.position.x)));
+        rollButton.transform.position = buttPos;
 
-    public override void exit() {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < drawnDice.Length; i++)
+        {
+            if(Vector3.Distance(drawnDice[i].transform.position, mouseWorldPos) < gapSize * 1.5f)
+            {
+                tooltip.gameObject.SetActive(true);
+                tooltip.position = Camera.main.WorldToScreenPoint(drawnDice[i].transform.position + Vector3.down);
+
+                tooltip.GetComponentInChildren<Tooltip>().title.text = drawnDice[i].dieName;
+                tooltip.GetComponentInChildren<Tooltip>().description.text = drawnDice[i].description;
+
+                if (i == 1) rollButton.transform.position = buttPos + Vector3.down * 80 * rollButton.transform.parent.parent.localScale.x;
+                 
+                return;
+            }
+        }
+
+        tooltip.gameObject.SetActive(false);
     }
 }

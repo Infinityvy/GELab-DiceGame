@@ -42,8 +42,11 @@ public class GS_PlaceDice : GameState
     private void highlightField() {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y - activeGrid.transform.position.y));
         for (int x = 0; x < GameManager.gridSize; x++) {
-            for (int y = 0; y < GameManager.gridSize; y++) {
-                if (Vector3.Distance(mouseWorldPos, activeGrid.getFieldWorldPosFromFieldMatrixPos(x, y)) < activeGrid.fieldGap / 2) {
+            for (int z = 0; z < GameManager.gridSize; z++) {
+                Vector3 gridPos = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, z);
+                if(mouseWorldPos.x > gridPos.x - activeGrid.fieldGap * 0.5f && mouseWorldPos.x < gridPos.x + activeGrid.fieldGap * 0.5f &&
+                   mouseWorldPos.z > gridPos.z - activeGrid.fieldGap * 0.5f && mouseWorldPos.z < gridPos.z + activeGrid.fieldGap * 0.5f)
+                {
                     highlighter.gameObject.SetActive(true);
                     highlighter.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, y);
                     currentX = x;
