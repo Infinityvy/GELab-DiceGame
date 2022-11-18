@@ -48,7 +48,7 @@ public class GS_PlaceDice : GameState
                    mouseWorldPos.z > gridPos.z - activeGrid.fieldGap * 0.5f && mouseWorldPos.z < gridPos.z + activeGrid.fieldGap * 0.5f)
                 {
                     highlighter.gameObject.SetActive(true);
-                    highlighter.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, y);
+                    highlighter.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, z);
                     currentX = x;
                     currentY = y;
                     return;
