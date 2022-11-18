@@ -50,7 +50,7 @@ public class GS_PlaceDice : GameState
                     highlighter.gameObject.SetActive(true);
                     highlighter.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, z);
                     currentX = x;
-                    currentY = y;
+                    currentY = z;
                     return;
                 }
             }

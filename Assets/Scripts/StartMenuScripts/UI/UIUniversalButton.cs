@@ -7,20 +7,12 @@ using UnityEngine.EventSystems;
 
 public class UIUniversalButton : MonoBehaviour
 {
-    public UIMenu Startmenu, Creditsmenu;
-
     public void gotoMenu(UIMenu toMenu)
     {
-        if (toMenu = null)
+        if (toMenu == null)
             return;
-        if (toMenu == Startmenu) {
-            Creditsmenu.Exit();
-            Startmenu.Init();
-        }
-        else {
-            Startmenu.Exit();
-            Creditsmenu.Init();
-        }
+        toMenu.GetComponent<UIMenu>().Init();
+        GetComponentInParent<UIMenu>().Exit();
     }
 
     public void moveDie(Transform die)
