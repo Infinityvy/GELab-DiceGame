@@ -41,12 +41,13 @@ public class GS_PlaceDice : GameState
 
     private void highlightField() {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y - activeGrid.transform.position.y));
-        Debug.Log(mouseWorldPos);
         for (int x = 0; x < GameManager.gridSize; x++) {
             for (int y = 0; y < GameManager.gridSize; y++) {
                 if (Vector3.Distance(mouseWorldPos, activeGrid.getFieldWorldPosFromFieldMatrixPos(x, y)) < activeGrid.fieldGap / 2) {
                     highlighter.gameObject.SetActive(true);
                     highlighter.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, y);
+                    currentX = x;
+                    currentY = y;
                     return;
                 }
             }
@@ -57,7 +58,11 @@ public class GS_PlaceDice : GameState
     }
 
     private void placeDie() {
-        //hier code
+        if (highlighter.gameObject.activeSelf)
+            if (activePlayer.dieFields[currentX, currentY] == null) {
+                activePlayer.dieFields[currentX, currentY] = activeDie;
+                activeDie.transform.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(currentX, currentY);
+            }
         exit();
     }
 }

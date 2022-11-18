@@ -1,20 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIUniversalButton : MonoBehaviour
 {
-    public void gotoMenu(GameObject menu)
+    public UIMenu Startmenu, Creditsmenu;
+
+    public void gotoMenu(UIMenu toMenu)
     {
-        if (menu != null) {
-            menu.SetActive(true);
-            transform.parent.gameObject.SetActive(false);
+        if (toMenu = null)
+            return;
+        if (toMenu == Startmenu) {
+            Creditsmenu.Exit();
+            Startmenu.Init();
+        }
+        else {
+            Startmenu.Exit();
+            Creditsmenu.Init();
         }
     }
 
     public void moveDie(Transform die)
     {
         if (die != null) {
+            EventSystem.current.SetSelectedGameObject(gameObject);
             float objectWidth = GetComponent<RectTransform>().rect.width * GetComponentInParent<Canvas>().transform.localScale.x;
             float newX = transform.position.x - objectWidth / 2;
             float newY = transform.position.y;
