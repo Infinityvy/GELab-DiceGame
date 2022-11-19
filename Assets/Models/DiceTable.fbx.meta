@@ -12,8 +12,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: EdgeMat
+    second: {fileID: 2100000, guid: bb9b7c906e4f0c44086300e123f188de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlowMat
+    second: {fileID: 2100000, guid: 1fe6e51087447af4882e70b910c013f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: TableMat
-    second: {fileID: 2100000, guid: f264554f15df3fc408d6b0f4535a75e4, type: 2}
+    second: {fileID: 2100000, guid: 4c59f43c7f15c0a41b5a88ea75a43ab7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
