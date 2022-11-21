@@ -25,4 +25,15 @@ public class UIUniversalButton : MonoBehaviour
             die.position = Camera.main.ScreenToWorldPoint(new Vector3(newX, newY, 10)) + Vector3.left;
         }
     }
+
+    public void enableSelector(GameObject selector)
+    {
+        EventSystem.current.SetSelectedGameObject(gameObject);
+        selector.SetActive(true);
+    }
+
+    public void disableSelector(GameObject selector)
+    {
+        selector.SetActive(false);
+    }
 }
