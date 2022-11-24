@@ -20,7 +20,7 @@ public class GS_RollDice : GameState
     private float minTossStrength = 20;
     private float maxTossStrength = 35;
 
-    private float timeout = 15;
+    private float timeout = 10;
 
     public override void init(Die[] dice)
     {
@@ -62,31 +62,28 @@ public class GS_RollDice : GameState
             {
                 dice[i].transform.position = Vector3.Lerp(dice[i].transform.position, rollPos.position, animationSpeed / Vector3.Distance(dice[i].transform.position, rollPos.position));
 
-                if (i == dice.Length - 1 && Vector3.Distance(dice[i].transform.position, rollPos.position) < 0.001f)
+                if (Vector3.Distance(dice[i].transform.position, rollPos.position) < 0.001f)
                 {
-                    CancelInvoke();
-                    StartCoroutine("rollDice");
+                    if (i == dice.Length - 1)
+                    {
+                        CancelInvoke();
+                        StartCoroutine("waitForRollingDice");
+                    }
+
+                        diceToMove[i] = false;
+
+                    dice[i].setIdleRotation(false);
+                    dice[i].roll(rollPos.rotation * Quaternion.Euler(Random.Range(0, maxSpreadAngle),
+                                                                             Random.Range(0, maxSpreadAngle),
+                                                                             Random.Range(0, maxSpreadAngle)) * Vector3.forward * Random.Range(minTossStrength, maxTossStrength),
+                                                                             new Vector3(Random.Range(0, maxTorqueStrength),
+                                                                                         Random.Range(0, maxTorqueStrength),
+                                                                                         Random.Range(0, maxTorqueStrength)));
                 }
             }
         }
     }
 
-    private IEnumerator rollDice()
-    {
-        for (int i = 0; i < dice.Length; i++)
-        {
-            dice[i].setIdleRotation(false);
-            dice[i].roll(rollPos.rotation * Quaternion.Euler(Random.Range(0, maxSpreadAngle),
-                                                                     Random.Range(0, maxSpreadAngle),
-                                                                     Random.Range(0, maxSpreadAngle)) * Vector3.forward * Random.Range(minTossStrength, maxTossStrength),
-                                                                     new Vector3(Random.Range(0, maxTorqueStrength),
-                                                                                 Random.Range(0, maxTorqueStrength),
-                                                                                 Random.Range(0, maxTorqueStrength)));
-            yield return new WaitForSeconds(moveDelay);
-        }
-
-        StartCoroutine("waitForRollingDice");
-    }
 
 
     private IEnumerator waitForRollingDice()
