@@ -28,6 +28,7 @@ public abstract class Die
             _rollModeEnabled = value;
             dieRigidbody.useGravity = value;
             dieRigidbody.detectCollisions = value;
+            dieRigidbody.freezeRotation = !value;
             if(!value) dieRigidbody.velocity = Vector3.zero;
         }
     }
@@ -69,7 +70,7 @@ public abstract class Die
 
     public virtual void roll(Vector3 force, Vector3 torque) //applies force and torque to the die's rigidbody
     {
-        Debug.Log(dieRigidbody);
+        //Debug.Log(dieRigidbody);
 
         rollModeEnabled = true;
         dieRigidbody.AddForce(force, ForceMode.Impulse);
@@ -79,13 +80,21 @@ public abstract class Die
     public bool hasStoppedMoving() //returns true if the die has stopped moving and rotating
     {
 
-       bool stoppedMoving = dieRigidbody.IsSleeping(); //might not work; if it doesnt use code above instead
+        bool stoppedMoving = dieRigidbody.IsSleeping();
 
-        rollModeEnabled = !stoppedMoving;
-
-        if (stoppedMoving) setActiveFaceValue();
+        if (stoppedMoving)
+        {
+            rollModeEnabled = false;
+            setActiveFaceValue();
+        }
 
         return stoppedMoving;
+    }
+
+    public void forceStopMoving()
+    {
+        rollModeEnabled = false;
+        setActiveFaceValue();
     }
 
     protected abstract void setActiveFaceValue();
@@ -104,4 +113,6 @@ public abstract class Die
     {
         dieObject.setIdleRotation(state);
     }
+
+    public abstract void rotateToActiveFace();
 }

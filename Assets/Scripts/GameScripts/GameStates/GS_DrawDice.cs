@@ -6,10 +6,8 @@ using TMPro;
 
 public class GS_DrawDice : GameState
 {
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private CameraManager cameraManager;
     [SerializeField] private Player activePlayer;
-    [SerializeField] private GameObject ui_DrawDie;
+    [SerializeField] private GameObject currentUI;
     [SerializeField] private GameObject rollButton;
 
     private bool initialized = false;
@@ -21,8 +19,7 @@ public class GS_DrawDice : GameState
 
     //animation
     private float animationDelay = 0.2f;
-    private float animationSpeed = 0.01f;
-    private int[] iterationsSinceAnimationStart;
+    private float animationSpeed = 0.7f;
 
     private Vector3 spawnPos = new Vector3(0, -10, -30);
 
@@ -30,19 +27,17 @@ public class GS_DrawDice : GameState
     [SerializeField] private Transform tooltip;
     private Vector3 buttPos;
 
-    public override void init()
+    public override void init(Die[] dice)
     {
 
-        activePlayer = gameManager.activePlayer;
+        activePlayer = GameManager.current.activePlayer;
         
         drawnDice = new Die[3];
         diceToAnimate = new bool[drawnDice.Length];
-        iterationsSinceAnimationStart = new int[drawnDice.Length];
 
         for (int i = 0; i < drawnDice.Length; i++)
         {
             diceToAnimate[i] = false;
-            iterationsSinceAnimationStart[i] = 0;
         }
 
         for (int i = 0; i < drawnDice.Length; i++)
@@ -57,14 +52,22 @@ public class GS_DrawDice : GameState
 
         StartCoroutine("animateDraw");
 
-        ui_DrawDie.SetActive(true);
+        currentUI.SetActive(true);
 
         initialized = true;
     }
     public override void exit()
     {
         initialized = false;
-        ui_DrawDie.SetActive(false);
+        CancelInvoke();
+
+        for(int i = 0; i < drawnDice.Length; i++)
+        {
+            drawnDice[i].transform.position = getTargetPosition(i);
+        }
+
+        currentUI.SetActive(false);
+        GameManager.current.callGameState(GameStateName.RollDice, drawnDice);
     }
 
     private void Update()
@@ -76,7 +79,7 @@ public class GS_DrawDice : GameState
 
     private Vector3 getTargetPosition(int i)
     {
-        return Quaternion.Euler(cameraManager.currentPosition.rot) * Vector3.forward * 8 + cameraManager.currentPosition.pos
+        return Quaternion.Euler(CameraManager.current.currentPosition.rot) * Vector3.forward * 8 + CameraManager.current.currentPosition.pos
                                               + Vector3.back * drawnDice.Length * gapSize + i * Vector3.forward * drawnDice.Length * gapSize;
     }
 
@@ -97,16 +100,17 @@ public class GS_DrawDice : GameState
         {
             if(diceToAnimate[i])
             {
-                iterationsSinceAnimationStart[i]++;
-                if(i == drawnDice.Length - 1 && Vector3.Distance(drawnDice[i].transform.position, getTargetPosition(i)) < 0.001f)
+                Vector3 targetPos = getTargetPosition(i);
+                if (i == drawnDice.Length - 1 && Vector3.Distance(drawnDice[i].transform.position, targetPos) < 0.001f)
                 {
                     CancelInvoke();
                 }
 
-                drawnDice[i].transform.position = Vector3.Lerp(spawnPos, getTargetPosition(i), animationSpeed * iterationsSinceAnimationStart[i]);
+                drawnDice[i].transform.position = Vector3.Lerp(drawnDice[i].transform.position, targetPos, animationSpeed / Vector3.Distance(drawnDice[i].transform.position, targetPos));
             }
         }
     }
+
     private void highlightDie()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Abs(Camera.main.transform.position.x - drawnDice[0].transform.position.x)));

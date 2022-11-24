@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ButtonBreathEffect : MonoBehaviour
 {
-    //private RectTransform rectTrans;
 
     private Vector3 defaultSize;
     public float intensity = 0.1f;
@@ -12,8 +11,6 @@ public class ButtonBreathEffect : MonoBehaviour
 
     private void Start()
     {
-        //rectTrans = GetComponent<RectTransform>();
-        //defaultSize = rectTrans.localScale;
         defaultSize = transform.localScale;
     }
 

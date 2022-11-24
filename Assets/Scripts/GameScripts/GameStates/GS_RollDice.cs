@@ -4,12 +4,118 @@ using UnityEngine;
 
 public class GS_RollDice : GameState
 {
-    public override void exit() {
-        throw new System.NotImplementedException();
+    //publics
+    public Transform rollPos;
+
+    //privates
+    private Player activePlayer;
+    private Die[] dice;
+
+    private bool[] diceToMove;
+    private float moveDelay = 0.4f;
+    private float animationSpeed = 0.7f;
+
+    private float maxSpreadAngle = 5;
+    private float maxTorqueStrength = 25;
+    private float minTossStrength = 20;
+    private float maxTossStrength = 35;
+
+    private float timeout = 15;
+
+    public override void init(Die[] dice)
+    {
+        activePlayer = GameManager.current.activePlayer;
+        CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Bowl");
+        this.dice = dice;
+
+        diceToMove = new bool[dice.Length];
+
+        for (int i = 0; i < dice.Length; i++)
+        {
+            diceToMove[i] = false;
+        }
+
+        StartCoroutine("animateMove");
     }
 
-    public override void init()
+    public override void exit()
     {
-        throw new System.NotImplementedException();
+        GameManager.current.callGameState(GameStateName.ChooseDice, dice);
+    }
+
+    private IEnumerator animateMove()
+    {
+        InvokeRepeating("moveDice", 0.01f, 0.01f);
+
+        for (int i = 0; i < dice.Length; i++)
+        {
+            diceToMove[i] = true;
+            yield return new WaitForSeconds(moveDelay);
+        }
+    }
+
+    private void moveDice()
+    {
+        for (int i = 0; i < dice.Length; i++)
+        {
+            if (diceToMove[i])
+            {
+                dice[i].transform.position = Vector3.Lerp(dice[i].transform.position, rollPos.position, animationSpeed / Vector3.Distance(dice[i].transform.position, rollPos.position));
+
+                if (i == dice.Length - 1 && Vector3.Distance(dice[i].transform.position, rollPos.position) < 0.001f)
+                {
+                    CancelInvoke();
+                    StartCoroutine("rollDice");
+                }
+            }
+        }
+    }
+
+    private IEnumerator rollDice()
+    {
+        for (int i = 0; i < dice.Length; i++)
+        {
+            dice[i].setIdleRotation(false);
+            dice[i].roll(rollPos.rotation * Quaternion.Euler(Random.Range(0, maxSpreadAngle),
+                                                                     Random.Range(0, maxSpreadAngle),
+                                                                     Random.Range(0, maxSpreadAngle)) * Vector3.forward * Random.Range(minTossStrength, maxTossStrength),
+                                                                     new Vector3(Random.Range(0, maxTorqueStrength),
+                                                                                 Random.Range(0, maxTorqueStrength),
+                                                                                 Random.Range(0, maxTorqueStrength)));
+            yield return new WaitForSeconds(moveDelay);
+        }
+
+        StartCoroutine("waitForRollingDice");
+    }
+
+
+    private IEnumerator waitForRollingDice()
+    {
+        float startTime = Time.time;
+        bool allStoppedMoving = false;
+
+        while(!allStoppedMoving && timeout > Time.time - startTime)
+        {
+            yield return new WaitForSeconds(0.5f);
+            allStoppedMoving = true;
+            for(int i = 0; i < dice.Length; i++)
+            {
+                if(!dice[i].hasStoppedMoving())
+                {
+                    allStoppedMoving = false;
+                    continue;
+                }
+            }
+        }
+
+        if(!allStoppedMoving)
+        {
+            for (int i = 0; i < dice.Length; i++)
+            {
+                dice[i].forceStopMoving();
+            }
+        }
+
+        exit();
     }
 }

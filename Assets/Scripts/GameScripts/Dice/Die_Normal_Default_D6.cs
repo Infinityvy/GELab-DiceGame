@@ -11,6 +11,13 @@ public class Die_Normal_Default_D6 : Die
 
     protected override int facecount { get; } = 6;
 
+    private Quaternion activeFaceRot; //the rotation needed so that the active face is on top
+
+    public override void rotateToActiveFace()
+    {
+        transform.rotation = activeFaceRot;
+    }
+
     protected override void setActiveFaceValue() //calculates top face by comparing the height of the center point of all faces; highest point is the top face; sets face value accordingly
     {
         //faces in order: top (y = 1), bottom (y = -1), left (x = -1), right (x = 1), front (z = 1), back (z = -1)
@@ -18,12 +25,14 @@ public class Die_Normal_Default_D6 : Die
 
         int highest = 1;
         float y = (transform.rotation * Vector3.up).y; //we assume the up face is on top by default.
+        activeFaceRot = Quaternion.Euler(0, 90, 0);
 
         float currentY = (transform.rotation * Vector3.down).y; //default down face
         if (currentY > y)
         {
             y = currentY;
             highest = 6;
+            activeFaceRot = Quaternion.Euler(180, 90, 0);
         }
 
         currentY = (transform.rotation * Vector3.left).y; //default left face
@@ -31,6 +40,7 @@ public class Die_Normal_Default_D6 : Die
         {
             y = currentY;
             highest = 2;
+            activeFaceRot = Quaternion.Euler(0, 0, -90);
         }
 
         currentY = (transform.rotation * Vector3.right).y; //default right face
@@ -38,6 +48,7 @@ public class Die_Normal_Default_D6 : Die
         {
             y = currentY;
             highest = 5;
+            activeFaceRot = Quaternion.Euler(0, 180, 90);
         }
 
         currentY = (transform.rotation * Vector3.forward).y; //default front face
@@ -45,6 +56,7 @@ public class Die_Normal_Default_D6 : Die
         {
             y = currentY;
             highest = 3;
+            activeFaceRot = Quaternion.Euler(-90, -90, 0);
         }
 
         currentY = (transform.rotation * Vector3.back).y; //default back face
@@ -52,6 +64,7 @@ public class Die_Normal_Default_D6 : Die
         {
             y = currentY;
             highest = 4;
+            activeFaceRot = Quaternion.Euler(90, 90, 0);
         }
 
         activeFaceValue = highest;
@@ -61,9 +74,9 @@ public class Die_Normal_Default_D6 : Die
     {
         dieObject.numbers[0].text = "1"; //top
         dieObject.numbers[1].text = "6"; //bottom
-        dieObject.numbers[2].text = "5"; //right
-        dieObject.numbers[3].text = "2"; //left
-        dieObject.numbers[4].text = "3"; //front
-        dieObject.numbers[5].text = "4"; //back
+        dieObject.numbers[2].text = "3"; //front
+        dieObject.numbers[3].text = "4"; //back
+        dieObject.numbers[4].text = "5"; //right
+        dieObject.numbers[5].text = "2"; //left
     }
 }

@@ -10,42 +10,46 @@ public class GS_PlaceDice : GameState
     private DieFieldGrid activeGrid;
     private Player activePlayer;
     private int currentX = 0, currentY = 0;
+    private Die activeDie;
 
     // Publics:
-    public Die activeDie;
     public Transform highlighter;
     public DieFieldGrid[] fieldGrids;
-    public GameManager gameManager;
 
-    public override void init()
+    public override void init(Die[] dice)
     {
-        activePlayer = gameManager.activePlayer;
+        activeDie = dice[0];
+        activePlayer = GameManager.current.activePlayer;
         activeGrid = fieldGrids[activePlayer.playerID];
 
         //highlighter.localScale = Vector3.one * activeGrid.fieldGap * 0.2f;
         highlighter.gameObject.SetActive(false);
-        CameraManager.cam.setPositionByName("Player" + activePlayer.playerID + "Grid");
+        CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
 
         initialized = true;
     }
 
-    public override void exit() {
+    public override void exit()
+    {
+        highlighter.gameObject.SetActive(false);
         initialized = false;
     }
 
-    private void Update() {
+    private void Update() 
+    {
         if (!initialized) return;
         highlightField();
         if (Input.GetKeyDown(KeyCode.Mouse0)) placeDie();
     }
 
-    private void highlightField() {
+    private void highlightField() 
+    {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y - activeGrid.transform.position.y));
         for (int x = 0; x < GameManager.gridSize; x++) {
             for (int z = 0; z < GameManager.gridSize; z++) {
                 Vector3 gridPos = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, z);
-                if(mouseWorldPos.x > gridPos.x - activeGrid.fieldGap * 0.5f && mouseWorldPos.x < gridPos.x + activeGrid.fieldGap * 0.5f &&
-                   mouseWorldPos.z > gridPos.z - activeGrid.fieldGap * 0.5f && mouseWorldPos.z < gridPos.z + activeGrid.fieldGap * 0.5f)
+                if(mouseWorldPos.x > gridPos.x - activeGrid.gapSize * 0.5f && mouseWorldPos.x < gridPos.x + activeGrid.gapSize * 0.5f &&
+                   mouseWorldPos.z > gridPos.z - activeGrid.gapSize * 0.5f && mouseWorldPos.z < gridPos.z + activeGrid.gapSize * 0.5f)
                 {
                     highlighter.gameObject.SetActive(true);
                     highlighter.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(x, z);
@@ -60,12 +64,16 @@ public class GS_PlaceDice : GameState
         }
     }
 
-    private void placeDie() {
+    private void placeDie() 
+    {
         if (highlighter.gameObject.activeSelf)
-            if (activePlayer.dieFields[currentX, currentY] == null) {
+        {
+            if (activePlayer.dieFields[currentX, currentY] == null)
+            {
                 activePlayer.dieFields[currentX, currentY] = activeDie;
                 activeDie.transform.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(currentX, currentY);
             }
+        }
         exit();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DieFieldGrid : MonoBehaviour
 {
-    public float fieldGap = 1.0f;
+    public float gapSize = 1.0f;
     [SerializeField] private bool alwaysShowGizmos = false;
 
     private void OnDrawGizmosSelected()
@@ -27,7 +27,7 @@ public class DieFieldGrid : MonoBehaviour
             {
                 if (y == 0 && x == 1) Gizmos.color = Color.red;
                 else Gizmos.color = Color.green;
-                Gizmos.DrawCube(getFieldWorldPosFromFieldMatrixPos(x, y), Vector3.one * fieldGap * 0.9f);
+                Gizmos.DrawCube(getFieldWorldPosFromFieldMatrixPos(x, y), Vector3.one * gapSize * 0.9f);
             }
         }
     }
@@ -39,6 +39,6 @@ public class DieFieldGrid : MonoBehaviour
         //(0, 1) (0, 0) (0, -1)
         //(-1, 1)(-1, 0)(-1, -1)
 
-        return transform.position + transform.rotation * new Vector3(1 - y, 0, 1 - x) * fieldGap;
+        return transform.position + transform.rotation * new Vector3(1 - y, 0, 1 - x) * gapSize;
     }
 }

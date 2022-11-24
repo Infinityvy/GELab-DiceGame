@@ -12,7 +12,7 @@ public struct CameraPosition
 
 public class CameraManager : MonoBehaviour
 {
-    public static CameraManager cam;
+    public static CameraManager current;
 
     public CameraPosition[] positions;
 
@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        cam = this;
+        current = this;
         setPositionByName("Player0");
     }
 

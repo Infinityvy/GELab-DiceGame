@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager current;
+
     //public
     public static int gridSize = 3;
     public GameState gameState;
@@ -11,16 +14,19 @@ public class GameManager : MonoBehaviour
     public int activePlayerID = 0;
     public Player activePlayer;
 
-    public GameState[] gameStates;
+    public GameStateRef[] gameStateRefs;
 
+    //private
     [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
-    [SerializeField] private DiceMesh[] diceMeshes;
 
 
     private Die testDie_D6;
     private Die testDie_D4;
 
-    //private
+    private void Awake()
+    {
+        current = this;
+    }
 
     void Start()
     {
@@ -34,15 +40,36 @@ public class GameManager : MonoBehaviour
 
         //TestRollingDice();
         //TestIdleDice();
-        testDie_D6 = new Die_Normal_Default_D6();
-        testDie_D6.init_Transform();
-        ((GS_PlaceDice)gameStates[3]).activeDie = testDie_D6;
-        gameStates[3].init();
+
+        //testDie_D6 = new Die_Normal_Default_D6();
+        //testDie_D6.init_Transform();
+        //Die[] testDice = { testDie_D6 };
+
+        callGameState(GameStateName.DrawDice, null);
     }
 
     void Update()
     {
+        //reload scene
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R))
+        {
+            Scene activeScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(activeScene.name);
+        }
+    }
 
+    public void callGameState(GameStateName name, Die[] dice)
+    {
+        for (int i = 0; i < gameStateRefs.Length; i++)
+        {
+            if(name == gameStateRefs[i].name)
+            {
+                gameStateRefs[i].gameState.init(dice);
+                return;
+            }
+        }
+
+        throw new System.Exception("No GameState named \"" + name + "\" found.");
     }
 
     private void removeDie(Player player, int x, int y)
@@ -53,15 +80,18 @@ public class GameManager : MonoBehaviour
         player.dieFields[x, y] = null;
     }
 
+
+
+    #region testing
     private void TestRollingDice()
     {
         Vector3 spawnPos = new Vector3(0, 4, -8);
 
         testDie_D6 = new Die_Normal_Default_D6();
-        testDie_D6.init_Transform(Instantiate(diceMeshes[0].diceMeshPrefab, spawnPos, Quaternion.identity).transform);
+        testDie_D6.init_Transform();
 
         testDie_D4 = new Die_Normal_Midroll_D4();
-        testDie_D4.init_Transform(Instantiate(diceMeshes[1].diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).transform);
+        testDie_D4.init_Transform();
 
         testDie_D6.roll(Vector3.forward * 20, Vector3.one * 20);
         testDie_D4.roll(Vector3.forward * 10, Vector3.one * 40);
@@ -75,29 +105,26 @@ public class GameManager : MonoBehaviour
 
 
         testDie_D6 = new Die_Normal_Default_D6();
-        testDie_D6.init_Transform(Instantiate(getDiceMeshByName("D6_Default").diceMeshPrefab, spawnPos, Quaternion.identity).transform);
+        testDie_D6.init_Transform();
 
         testDie_D4 = new Die_Normal_Midroll_D4();
-        testDie_D4.init_Transform(Instantiate(getDiceMeshByName("D4_Default").diceMeshPrefab, spawnPos + Vector3.up * 3, Quaternion.identity).transform);
+        testDie_D4.init_Transform();
 
         testDie_D6.setIdleRotation(true);
         testDie_D4.setIdleRotation(true);
     }
+    #endregion
 
-    private DiceMesh getDiceMeshByName(string name) //returns null if nothing was found
-    {
-        for(int i = 0; i < diceMeshes.Length; i++)
-        {
-            if (diceMeshes[i].name == name) return diceMeshes[i];
-        }
+}
 
-        throw new System.Exception("No mesh with name " + name + " found.");
-    }
+public enum GameStateName
+{
+    DrawDice, RollDice, ChooseDice, PlaceDice
 }
 
 [System.Serializable]
-public class DiceMesh
+public struct GameStateRef
 {
-    public string name;
-    public GameObject diceMeshPrefab;
+    public GameStateName name;
+    public GameState gameState;
 }
