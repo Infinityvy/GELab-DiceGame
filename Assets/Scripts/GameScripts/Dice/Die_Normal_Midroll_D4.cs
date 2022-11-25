@@ -48,7 +48,7 @@ public class Die_Normal_Midroll_D4 : Die
         {
             y = currentY;
             lowest = 5;
-            activeFaceRot = Quaternion.Euler(180, 90, 0); ;
+            activeFaceRot = Quaternion.Euler(180, 90, 0);
         }
 
         activeFaceValue = lowest;

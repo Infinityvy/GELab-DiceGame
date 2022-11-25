@@ -6,9 +6,9 @@ using TMPro;
 
 public class GS_DrawDice : GameState
 {
-    [SerializeField] private Player activePlayer;
-    [SerializeField] private GameObject currentUI;
-    [SerializeField] private GameObject rollButton;
+    private Player activePlayer;
+    public GameObject currentUI;
+    public GameObject rollButton;
 
     private bool initialized = false;
 
@@ -24,7 +24,7 @@ public class GS_DrawDice : GameState
     private Vector3 spawnPos = new Vector3(0, -10, -30);
 
     //tooltip
-    [SerializeField] private Transform tooltip;
+    public Transform tooltip;
     private Vector3 buttPos;
 
     public override void init(Die[] dice)
@@ -67,6 +67,7 @@ public class GS_DrawDice : GameState
         }
 
         currentUI.SetActive(false);
+        tooltip.gameObject.SetActive(false);
         GameManager.current.callGameState(GameStateName.RollDice, drawnDice);
     }
 

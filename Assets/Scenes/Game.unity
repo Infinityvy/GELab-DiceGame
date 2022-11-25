@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.00089015363, g: 0.001340671, b: 0.0028307931, a: 1}
+  m_IndirectSpecularColor: {r: 0.0009780765, g: 0.0013401323, b: 0.002829816, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -449,6 +449,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 442296146}
   - {fileID: 1723469430}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -524,7 +525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &442296146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -541,8 +542,8 @@ RectTransform:
   - {fileID: 31824883}
   - {fileID: 580208651}
   - {fileID: 924711402}
-  m_Father: {fileID: 1723469430}
-  m_RootOrder: 1
+  m_Father: {fileID: 88448340}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1241,6 +1242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb7fdd0a1220714b936398c2ae62194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tooltip: {fileID: 442296146}
 --- !u!1 &1231075962 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2727406159288386017, guid: 556e3aeb7b1bc3d4387b1187ab7a4870, type: 3}
@@ -1692,6 +1694,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
+      propertyPath: gapSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: fieldGap
       value: 3
       objectReference: {fileID: 0}
@@ -1785,9 +1791,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1589878075}
-  - {fileID: 442296146}
   m_Father: {fileID: 88448340}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1973,14 +1978,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868434403}
-  m_LocalRotation: {x: 0.06162845, y: 0.70441604, z: -0.06162845, w: 0.70441604}
-  m_LocalPosition: {x: -45, y: 12, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 10, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1868434408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2015,6 +2020,9 @@ MonoBehaviour:
   - name: Bowl
     pos: {x: 0, y: 10, z: 0}
     rot: {x: 90, y: 90, z: 0}
+  - name: EagleEye
+    pos: {x: 0, y: 20, z: 0}
+    rot: {x: 90, y: 0, z: 0}
 --- !u!1 &1994939174
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,6 +2092,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
+      propertyPath: gapSize
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 966460921377591156, guid: 226836de4c46fe94384590e00d8633f0, type: 3}
       propertyPath: fieldGap
       value: 3
