@@ -15,6 +15,10 @@ public class UIUniversalButton : MonoBehaviour
         GetComponentInParent<UIMenu>().Exit();
     }
 
+    public void quitGame() {
+        Application.Quit();
+    }
+
     public void moveDie(Transform die)
     {
         if (die != null) {
