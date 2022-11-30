@@ -11,8 +11,9 @@ public class UIUniversalButton : MonoBehaviour
     {
         if (toMenu == null)
             return;
-        toMenu.GetComponent<UIMenu>().Init();
+        toMenu.Init();
         GetComponentInParent<UIMenu>().Exit();
+        SoundManager.PlaySoundClick();
     }
 
     public void quitGame() {
