@@ -44,5 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4267a42612cc8a543b1328bca8ad50f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldGap: 1
+  gapSize: 3
   alwaysShowGizmos: 0
+  fieldObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  intensity: 0.1
+  speed: 2

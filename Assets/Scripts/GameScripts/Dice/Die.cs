@@ -19,6 +19,7 @@ public abstract class Die
 
     //protected
     protected abstract int facecount { get; }
+    protected abstract Quaternion activeFaceRot { get; set; } //the rotation needed so that the active face is on top
 
     protected bool rollModeEnabled 
     { 
@@ -62,7 +63,7 @@ public abstract class Die
 
     public virtual void clear_Transform() //destroys the connected transform and severs the connection
     {
-        GameObject.Destroy(transform);
+        GameObject.Destroy(transform.gameObject);
         transformInitiated = false;
     }
 
@@ -105,7 +106,7 @@ public abstract class Die
         for(int y1 = 0; y1 < 3; y1++)
         {
             if (y1 == y) continue;
-            else if (dieFields[x, y1].activeFaceValue == activeFaceValue) activeScore += activeFaceValue;
+            else if (dieFields[x, y1] != null && dieFields[x, y1].activeFaceValue == activeFaceValue) activeScore += activeFaceValue;
         }
     }
 
@@ -114,5 +115,8 @@ public abstract class Die
         dieObject.setIdleRotation(state);
     }
 
-    public abstract void rotateToActiveFace();
+    public virtual void rotateToActiveFace(int rotationIndex)
+    {
+        transform.rotation = Quaternion.Euler(0, 180 * rotationIndex, 0) * activeFaceRot;
+    }
 }

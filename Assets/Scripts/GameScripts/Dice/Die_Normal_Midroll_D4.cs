@@ -9,12 +9,7 @@ public class Die_Normal_Midroll_D4 : Die
     public override string dieName { get; } = "Mid Roller D4";
     public override string description { get; } = "Prevents low rolls at the cost of no high rolls.\n\nFace values:\n2-3-4-5";
 
-    private Quaternion activeFaceRot; //the rotation needed so that the active face is on top
-
-    public override void rotateToActiveFace()
-    {
-        transform.rotation = activeFaceRot;
-    }
+    protected override Quaternion activeFaceRot { get; set; } 
 
     protected override int facecount { get; } = 4;
 

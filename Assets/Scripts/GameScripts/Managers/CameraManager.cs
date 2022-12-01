@@ -21,7 +21,6 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         current = this;
-        setPositionByName("Player0");
     }
 
     private void Update()
@@ -29,7 +28,7 @@ public class CameraManager : MonoBehaviour
 
     }
 
-    public void setPositionByName(string name) //returns false if position does not exist
+    public void setPositionByName(string name) //throws exception if postion does not exist
     {
         for (int i = 0; i < positions.Length; i++)
         {

@@ -28,6 +28,8 @@ public class Player
             activeDeck.addDie(new Die_Normal_Highroll_D6());
             activeDeck.addDie(new Die_Normal_Midroll_D4());
         }
+
+        
     }
 
     public void initDicePiles() //fills draw pile with active deck and empties discard pile
@@ -41,11 +43,15 @@ public class Player
         }
     }
 
-    public void swapSacks() //swaps draw sack and discard sack
+    public void refillDrawSack() //empties the discard sack into the draw sack
     {
-        List<Die> tmpSack = drawSack;
-        drawSack = discardSack;
-        discardSack = tmpSack;
+        drawSack.AddRange(discardSack);
+        discardSack = new List<Die>();
+    }
+
+    public int getDrawSackSize()
+    {
+        return drawSack.Count;
     }
 
     public Die drawDie() //draws and removes die from draw sack
@@ -59,6 +65,7 @@ public class Player
 
     public void discardDie(Die die) //adds die to discard sack
     {
+        die.clear_Transform();
         discardSack.Add(die);
     }
 

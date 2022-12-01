@@ -12,6 +12,12 @@ public class GS_ChooseDice : GameState
     private float gapSize = 1.5f;
     private float animationSpeed = 0.3f;
     private bool movedDice = false;
+    private int activePlayerID;
+    private CameraPosition alignementPos;
+
+    private bool eagleEyeActive = false;
+    private bool enemyBoardEyeActive = false;
+    private bool boardEyeActive = false;
 
     //tooltip
     public Transform tooltip;
@@ -20,12 +26,14 @@ public class GS_ChooseDice : GameState
     public override void init(Die[] dice)
     {
         this.dice = dice;
-        CameraManager.current.setPositionByName("Bowl");
+        activePlayerID = GameManager.current.activePlayerID;
+        CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+        alignementPos = CameraManager.current.currentPosition;
 
         for (int i = 0; i < dice.Length; i++)
         {
-            dice[i].rotateToActiveFace();
-            Debug.Log(dice[i].dieName + " has rolled a " + dice[i].activeFaceValue);
+            dice[i].rotateToActiveFace(activePlayerID);
+            //Debug.Log(dice[i].dieName + " has rolled a " + dice[i].activeFaceValue);
         }
 
         InvokeRepeating("moveDice", 0.01f, 0.01f);
@@ -36,8 +44,20 @@ public class GS_ChooseDice : GameState
     public override void exit()
     {
         initiated = false;
+        movedDice = false;
+        eagleEyeActive = false;
+        enemyBoardEyeActive = false;
+        boardEyeActive = false;
+
         tooltip.gameObject.SetActive(false);
+
+        for (int i = 0; i < dice.Length; i++)
+        {
+            if (i != selectedDieIndex) GameManager.current.activePlayer.discardDie(dice[i]);
+        }
+
         Die[] chosenDie = { dice[selectedDieIndex] };
+        CancelInvoke();
         GameManager.current.callGameState(GameStateName.PlaceDice, chosenDie);
     }
 
@@ -45,17 +65,19 @@ public class GS_ChooseDice : GameState
     {
         if (!initiated) return;
 
-        highlightDie();
+        if (!eagleEyeActive && !enemyBoardEyeActive && !boardEyeActive) highlightDie();
+        else if (tooltip.gameObject.activeSelf) tooltip.gameObject.SetActive(false);
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) && selectedDieIndex != -1)
-        {
-            exit();
-        }
+        if (Input.GetKeyDown(KeyCode.Space)) toggleEagleEye();
+        else if (Input.GetKeyDown(KeyCode.Q)) toggleEnemyBoardEye();
+        else if (Input.GetKeyDown(KeyCode.E)) toggleBoardEye();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && selectedDieIndex != -1) exit();
     }
 
     private Vector3 getTargetPosition(int i)
     {
-        return Quaternion.Euler(CameraManager.current.currentPosition.rot) * Vector3.forward * 8 + CameraManager.current.currentPosition.pos
+        return Quaternion.Euler(alignementPos.rot) * Vector3.forward * 8 + alignementPos.pos
                                               + Vector3.back * dice.Length * gapSize + i * Vector3.forward * dice.Length * gapSize;
     }
 
@@ -86,7 +108,7 @@ public class GS_ChooseDice : GameState
             {
                 selectedDieIndex = i;
                 tooltip.gameObject.SetActive(true);
-                tooltip.position = Camera.main.WorldToScreenPoint(dice[i].transform.position + Vector3.left);
+                tooltip.position = Camera.main.WorldToScreenPoint(dice[i].transform.position + Vector3.left * (1 - 2 * activePlayerID));
 
                 tooltip.GetComponentInChildren<Tooltip>().title.text = dice[i].dieName;
                 tooltip.GetComponentInChildren<Tooltip>().description.text = dice[i].description;
@@ -98,4 +120,54 @@ public class GS_ChooseDice : GameState
         selectedDieIndex = -1;
         tooltip.gameObject.SetActive(false);
     }
+
+    #region camera toggles
+    private void toggleEagleEye()
+    {
+        if (eagleEyeActive)
+        {
+            CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+            eagleEyeActive = false;
+        }
+        else
+        {
+            CameraManager.current.setPositionByName("Player" + activePlayerID + "EagleEye");
+            eagleEyeActive = true;
+            enemyBoardEyeActive = false;
+            boardEyeActive = false;
+        }
+    }
+
+    private void toggleEnemyBoardEye()
+    {
+        if (enemyBoardEyeActive)
+        {
+            CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+            enemyBoardEyeActive = false;
+        }
+        else
+        {
+            CameraManager.current.setPositionByName("Player" + (activePlayerID + 1) % 2 + "Grid");
+            enemyBoardEyeActive = true;
+            eagleEyeActive = false;
+            boardEyeActive = false;
+        }
+    }
+
+    private void toggleBoardEye()
+    {
+        if (boardEyeActive)
+        {
+            CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+            boardEyeActive = false;
+        }
+        else
+        {
+            CameraManager.current.setPositionByName("Player" + activePlayerID + "Grid");
+            boardEyeActive = true;
+            enemyBoardEyeActive = false;
+            eagleEyeActive = false;
+        }
+    }
+    #endregion
 }

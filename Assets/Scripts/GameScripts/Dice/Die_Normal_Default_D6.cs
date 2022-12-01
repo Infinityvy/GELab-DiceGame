@@ -11,12 +11,8 @@ public class Die_Normal_Default_D6 : Die
 
     protected override int facecount { get; } = 6;
 
-    private Quaternion activeFaceRot; //the rotation needed so that the active face is on top
+    protected override Quaternion activeFaceRot { get; set; }
 
-    public override void rotateToActiveFace()
-    {
-        transform.rotation = activeFaceRot;
-    }
 
     protected override void setActiveFaceValue() //calculates top face by comparing the height of the center point of all faces; highest point is the top face; sets face value accordingly
     {

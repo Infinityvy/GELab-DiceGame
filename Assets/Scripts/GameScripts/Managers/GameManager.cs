@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     //private
     [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
-
+    private int roundNr = 0;
 
     private Die testDie_D6;
     private Die testDie_D4;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         players[1] = new Player(1);
         players[1].initDicePiles();
 
-        activePlayer = players[0];
+        activePlayer = players[activePlayerID];
 
         //TestRollingDice();
         //TestIdleDice();
@@ -70,6 +70,17 @@ public class GameManager : MonoBehaviour
         }
 
         throw new System.Exception("No GameState named \"" + name + "\" found.");
+    }
+
+    public void endRound()
+    {
+        roundNr++;
+        activePlayer = players[(activePlayerID + 1) % 2];
+        activePlayerID = activePlayer.playerID;
+
+        //put win condition calculation here and end game if needed
+
+        callGameState(GameStateName.DrawDice, null);
     }
 
     private void removeDie(Player player, int x, int y)

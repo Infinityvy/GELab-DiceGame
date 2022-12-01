@@ -29,9 +29,9 @@ public class GS_DrawDice : GameState
 
     public override void init(Die[] dice)
     {
-
         activePlayer = GameManager.current.activePlayer;
-        
+        CameraManager.current.setPositionByName("Player" + activePlayer.playerID);
+
         drawnDice = new Die[3];
         diceToAnimate = new bool[drawnDice.Length];
 
@@ -51,6 +51,11 @@ public class GS_DrawDice : GameState
         buttPos = rollButton.transform.position;
 
         StartCoroutine("animateDraw");
+        if(activePlayer.getDrawSackSize() < 3)
+        {
+            activePlayer.refillDrawSack();
+            //start refill animation here
+        }
 
         currentUI.SetActive(true);
 
