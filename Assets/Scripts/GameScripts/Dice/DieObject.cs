@@ -44,4 +44,9 @@ public class DieObject : MonoBehaviour
             rotVector = new Vector3(rotationSpeed * xFac, rotationSpeed, rotationSpeed * zFac);
         }
     }
+
+    public void destroy()
+    {
+        
+    }
 }

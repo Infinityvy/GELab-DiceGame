@@ -99,16 +99,32 @@ public abstract class Die
     }
 
     protected abstract void setActiveFaceValue();
-    public virtual void calculateActiveScore(Die[,] dieFields, int x, int y) //default calulation. adds face value on active score for each duplicate face value in the row; 
-    {                                                                        //override to customize score calculation
-        activeScore = activeFaceValue;
 
-        for(int y1 = 0; y1 < 3; y1++)
+    public virtual void attackBoard(Player activePlayer, Player otherPlayer, int column, int row) //default calculation. destroys same face value dice on the mirrored column of the enemy board
+    {
+        int mirroredColumn = column * -1 + 2;
+
+        for (int currentRow = 0; currentRow < 3; currentRow++)
         {
-            if (y1 == y) continue;
-            else if (dieFields[x, y1] != null && dieFields[x, y1].activeFaceValue == activeFaceValue) activeScore += activeFaceValue;
+            if(otherPlayer.dieFields[mirroredColumn, currentRow] != null && otherPlayer.dieFields[mirroredColumn, currentRow].activeFaceValue == activeFaceValue)
+            {
+                GameManager.current.players[(activeFaceValue + 1) % 2].discardDie(otherPlayer.dieFields[mirroredColumn, currentRow]);
+                otherPlayer.dieFields[mirroredColumn, currentRow] = null;
+            }
         }
     }
+
+    public virtual void calculateActiveScore(Die[,] dieFields, int column, int row) //default calulation. adds face value on active score for each duplicate face value in the column
+    {                                                                        
+        activeScore = activeFaceValue;
+
+        for(int currentRow = 0; currentRow < 3; currentRow++)
+        {
+            if (currentRow == row) continue;
+            else if (dieFields[column, currentRow] != null && dieFields[column, currentRow].activeFaceValue == activeFaceValue) activeScore += activeFaceValue;
+        }
+    }
+
 
     public void setIdleRotation(bool state)
     {

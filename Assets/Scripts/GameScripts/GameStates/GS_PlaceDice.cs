@@ -17,7 +17,7 @@ public class GS_PlaceDice : GameState
     private bool eagleEyeActive = false;
     private bool enemyBoardEyeActive = false;
     private bool boardEyeActive = false;
-    private float exitDelaySeconds = 1;
+    private float exitDelaySeconds = 0.5f;
 
     // Publics:
     public Transform highlighter;
@@ -98,10 +98,26 @@ public class GS_PlaceDice : GameState
             activeDie.transform.position = activeGrid.getFieldWorldPosFromFieldMatrixPos(currentX, currentY);
             activeGrid.setHighlightField(currentX, currentY, false);
 
+
+            Player otherPlayer = GameManager.current.players[(activePlayer.playerID + 1) % 2];
+            DieFieldGrid otherGrid = fieldGrids[otherPlayer.playerID];
+
+
+            activeDie.attackBoard(activePlayer, otherPlayer, currentX, currentY);
+
             activePlayer.calculateScores();
-            for (int i = 0; i < 3; i++)
+
+            for (int i = 0; i < 3; i++) //updating row score display active player
             {
                 activeGrid.rowScoreDisplays[i].text = activePlayer.rowScores[i].ToString();
+            }
+
+
+            otherPlayer.calculateScores();
+
+            for (int i = 0; i < 3; i++) //updating row score display other/inactive player
+            {
+                otherGrid.rowScoreDisplays[i].text = otherPlayer.rowScores[i].ToString();
             }
 
             initialized = false;
