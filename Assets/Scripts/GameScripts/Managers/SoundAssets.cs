@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundAssets : MonoBehaviour
+public static class SoundAssets
 {
-    private static SoundAssets _i;
+    // Lists for music and sfx sources - is filled and managed by SoundManager
+    public static List<AudioSource> MusicSources = new();
+    public static List<AudioSource> SFXSources = new();
 
-    public static SoundAssets Instance {
-        get {
-            if (_i == null) _i = Instantiate(Resources.Load<SoundAssets>("SoundAssets"));
-            return _i;
-        }
+    public static void AddMusic(AudioSource audioSource) {
+        if(!MusicSources.Contains(audioSource) && audioSource != null) MusicSources.Add(audioSource);
     }
 
-    public AudioClip ButtonClick;
+    public static void AddSFX(AudioSource audioSource) {
+        if (!SFXSources.Contains(audioSource) && audioSource != null) SFXSources.Add(audioSource);
+    }
 }
