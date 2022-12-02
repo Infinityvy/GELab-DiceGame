@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public static class SoundAssets
 {
@@ -9,10 +10,14 @@ public static class SoundAssets
     public static List<AudioSource> SFXSources = new();
 
     public static void AddMusic(AudioSource audioSource) {
-        if(!MusicSources.Contains(audioSource) && audioSource != null) MusicSources.Add(audioSource);
+        if (!MusicSources.Contains(audioSource) && audioSource != null) {
+            MusicSources.Add(audioSource);
+        }
     }
 
     public static void AddSFX(AudioSource audioSource) {
-        if (!SFXSources.Contains(audioSource) && audioSource != null) SFXSources.Add(audioSource);
+        if (!SFXSources.Contains(audioSource) && audioSource != null) {
+            SFXSources.Add(audioSource);
+        }
     }
 }

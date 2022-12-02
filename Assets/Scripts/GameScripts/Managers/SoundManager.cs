@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
@@ -10,8 +11,13 @@ public class SoundManager : MonoBehaviour
     public Slider sfxVolumeSlider;
     public Slider musicVolumeSlider;
 
+    public static float musicVolume { get; private set; }
+    public static float sfxVolume { get; private set; }
+
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+
     private void Start() {
-        Debug.Log(SoundAssets.SFXSources[0]);
         if (!PlayerPrefs.HasKey("masterVolume"))
             PlayerPrefs.SetFloat("masterVolume", 1);
         if (!PlayerPrefs.HasKey("musicVolume"))
@@ -19,6 +25,14 @@ public class SoundManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("sfxVolume"))
             PlayerPrefs.SetFloat("sfxVolume", 1);
         Load();
+
+        for (int i = 0; i < SoundAssets.MusicSources.Count; i++) {
+            SoundAssets.MusicSources[i].outputAudioMixerGroup = musicMixerGroup;
+        }
+
+        for (int i = 0; i < SoundAssets.SFXSources.Count; i++) {
+            SoundAssets.SFXSources[i].outputAudioMixerGroup = sfxMixerGroup;
+        }
     }
 
     public void ChangeMasterVolume() {
@@ -26,18 +40,17 @@ public class SoundManager : MonoBehaviour
         Save();
     }
 
-    public void ChangeMusicVolume() {
-        for (int i = 0; i < SoundAssets.MusicSources.Count; i++) {
-            SoundAssets.MusicSources[i].volume = musicVolumeSlider.value;
-        }
-        Save();
+    public void OnMusicVolumeSliderChange(float value) {
+        musicVolume = value;
     }
 
-    public void ChangeSFXVolume() {
-        for (int i = 0; i < SoundAssets.SFXSources.Count; i++) {
-            SoundAssets.SFXSources[i].volume = sfxVolumeSlider.value;
-        }
-        Save();
+    public void OnSFXVolumeSliderChange(float value) {
+        sfxVolume = value;
+    }
+
+    public void UpdateMixerVolume() {   // convert to decibel with mathf
+        musicMixerGroup.audioMixer.SetFloat("Music Volume", Mathf.Log10(musicVolume) * 20);
+        sfxMixerGroup.audioMixer.SetFloat("SFX Volume", Mathf.Log10(sfxVolume) * 20);
     }
 
     public void Load() {
@@ -50,5 +63,9 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat("masterVolume", masterVolumeSlider.value);
         PlayerPrefs.SetFloat("musicVolume", musicVolumeSlider.value);
         PlayerPrefs.SetFloat("sfxVolume", sfxVolumeSlider.value);
+    }
+
+    private void OnApplicationQuit() {
+        PlayerPrefs.Save();
     }
 }
