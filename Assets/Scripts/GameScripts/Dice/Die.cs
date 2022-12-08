@@ -63,7 +63,8 @@ public abstract class Die
 
     public virtual void clear_Transform() //destroys the connected transform and severs the connection
     {
-        GameObject.Destroy(transform.gameObject);
+        dieObject.destroy();
+        transform = null;
         transformInitiated = false;
     }
 
@@ -99,7 +100,13 @@ public abstract class Die
     }
 
     protected abstract void setActiveFaceValue();
-
+    /// <summary>
+    /// Compares the die with the other Players board to potentially destroy conflicting dice.
+    /// </summary>
+    /// <param name="activePlayer">The player this die belongs to.</param>
+    /// <param name="otherPlayer">The other player.</param>
+    /// <param name="column">The column this die is located in.</param>
+    /// <param name="row">The row this die is located in.</param>
     public virtual void attackBoard(Player activePlayer, Player otherPlayer, int column, int row) //default calculation. destroys same face value dice on the mirrored column of the enemy board
     {
         int mirroredColumn = column * -1 + 2;

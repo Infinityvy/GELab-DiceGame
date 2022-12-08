@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GS_ChooseDice : GameState
 {
+    public AudioSource buttonAudioSource;
+    public AudioClip[] audioClips;
 
     //privates
     private Die[] dice;
@@ -30,6 +32,8 @@ public class GS_ChooseDice : GameState
         CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
         alignementPos = CameraManager.current.currentPosition;
 
+        buttonAudioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
+
         for (int i = 0; i < dice.Length; i++)
         {
             dice[i].rotateToActiveFace(activePlayerID);
@@ -49,6 +53,7 @@ public class GS_ChooseDice : GameState
         enemyBoardEyeActive = false;
         boardEyeActive = false;
 
+        buttonAudioSource.Play();
         tooltip.gameObject.SetActive(false);
 
         for (int i = 0; i < dice.Length; i++)
@@ -66,7 +71,11 @@ public class GS_ChooseDice : GameState
         if (!initiated) return;
 
         if (!eagleEyeActive && !enemyBoardEyeActive && !boardEyeActive) highlightDie();
-        else if (tooltip.gameObject.activeSelf) tooltip.gameObject.SetActive(false);
+        else if (tooltip.gameObject.activeSelf || selectedDieIndex != -1)
+        {
+            tooltip.gameObject.SetActive(false);
+            selectedDieIndex = -1;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space)) toggleEagleEye();
         else if (Input.GetKeyDown(KeyCode.Q)) toggleEnemyBoardEye();

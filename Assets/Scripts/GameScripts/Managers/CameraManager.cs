@@ -16,6 +16,9 @@ public class CameraManager : MonoBehaviour
 
     public CameraPosition[] positions;
 
+    /// <summary>
+    /// The currently set camera position.
+    /// </summary>
     public CameraPosition currentPosition { get; private set; }
 
     private void Start()
@@ -28,6 +31,10 @@ public class CameraManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Sets the camera position by it's name. Throws an exception if the position doesn't exist.
+    /// </summary>
+    /// <param name="name"></param>
     public void setPositionByName(string name) //throws exception if postion does not exist
     {
         for (int i = 0; i < positions.Length; i++)
@@ -42,6 +49,10 @@ public class CameraManager : MonoBehaviour
         throw new System.Exception("No Camera Position with the name " + name + " found.");
     }
 
+    /// <summary>
+    /// Sets the camera position by it's index.
+    /// </summary>
+    /// <param name="index"></param>
     public void setPositionByIndex(int index)
     {
         currentPosition = positions[index];

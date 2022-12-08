@@ -32,6 +32,9 @@ public class Player
         
     }
 
+    /// <summary>
+    /// Instantiates the players draw and discard sack and fills the players active deck into the draw sack.
+    /// </summary>
     public void initDicePiles() //fills draw pile with active deck and empties discard pile
     {
         drawSack = new List<Die>();
@@ -43,6 +46,9 @@ public class Player
         }
     }
 
+    /// <summary>
+    /// Adds all elements in the players discard sack to the draw sack and clears the discard sack.
+    /// </summary>
     public void refillDrawSack() //empties the discard sack into the draw sack
     {
         drawSack.AddRange(discardSack);
@@ -54,6 +60,10 @@ public class Player
         return drawSack.Count;
     }
 
+    /// <summary>
+    /// Removes a die from the players draw sack and returns it.
+    /// </summary>
+    /// <returns></returns>
     public Die drawDie() //draws and removes die from draw sack
     {
         int rndIndex = Random.Range(0, drawSack.Count);
@@ -63,12 +73,19 @@ public class Player
         return drawnDie;
     }
 
-    public void discardDie(Die die) //adds die to discard sack
+    /// <summary>
+    /// Adds the die to the players discard sack and clears the transform connected to the die.
+    /// </summary>
+    /// <param name="die"></param>
+    public void discardDie(Die die)
     {
         die.clear_Transform();
         discardSack.Add(die);
     }
 
+    /// <summary>
+    /// Calculates the score for each row of the players die grid and calculates the total score.
+    /// </summary>
     public void calculateScores() //calculates score per row and total score
     {
 

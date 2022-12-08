@@ -5,19 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// The currently active GameManager.
+    /// </summary>
     public static GameManager current;
 
     //public
+    /// <summary>
+    /// The side length of the die grids. Field amount will be gridSize * gridSize.
+    /// </summary>
     public static int gridSize = 3;
-    public GameState gameState;
+
+
     public Player[] players = new Player[2];
     public int activePlayerID = 0;
     public Player activePlayer;
 
+    /// <summary>
+    /// An array of all GameStates that allows them to be called by their enum.
+    /// </summary>
     public GameStateRef[] gameStateRefs;
 
     //private
-    [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; //the corresponding die fields for each player; 0 is for Player 0 and 1 is for Player 1
+
+    /// <summary>
+    /// The corresponding die grids for each player. The index matches the player ID.
+    /// </summary>
+    [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; 
+
     private int roundNr = 0;
 
     private Die testDie_D6;
@@ -58,6 +73,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calls a GameState.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="dice"></param>
     public void callGameState(GameStateName name, Die[] dice)
     {
         for (int i = 0; i < gameStateRefs.Length; i++)
@@ -81,14 +101,6 @@ public class GameManager : MonoBehaviour
         //put win condition calculation here and end game if needed
 
         callGameState(GameStateName.DrawDice, null);
-    }
-
-    private void removeDie(Player player, int x, int y)
-    {
-        if (player.dieFields[x, y] == null) return;
-
-        player.discardDie(player.dieFields[x, y]);
-        player.dieFields[x, y] = null;
     }
 
 

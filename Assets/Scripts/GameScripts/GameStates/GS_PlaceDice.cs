@@ -17,11 +17,11 @@ public class GS_PlaceDice : GameState
     private bool eagleEyeActive = false;
     private bool enemyBoardEyeActive = false;
     private bool boardEyeActive = false;
-    private float exitDelaySeconds = 0.5f;
+    private float exitDelaySeconds = 1.5f;
 
     // Publics:
-    public Transform highlighter;
     public DieFieldGrid[] fieldGrids;
+    public AudioSource buttonAudioSource;
 
     public override void init(Die[] dice)
     {
@@ -29,7 +29,6 @@ public class GS_PlaceDice : GameState
         activePlayer = GameManager.current.activePlayer;
         activeGrid = fieldGrids[activePlayer.playerID];
 
-        //highlighter.gameObject.SetActive(false);
         CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
 
         initialized = true;
@@ -37,7 +36,6 @@ public class GS_PlaceDice : GameState
 
     public override void exit()
     {
-        //highlighter.gameObject.SetActive(false);
         fieldSelected = false;
         eagleEyeActive = false;
         enemyBoardEyeActive = false;
@@ -71,9 +69,6 @@ public class GS_PlaceDice : GameState
                 if (mouseWorldPos.x > gridPos.x - activeGrid.gapSize * 0.5f && mouseWorldPos.x < gridPos.x + activeGrid.gapSize * 0.5f &&
                     mouseWorldPos.z > gridPos.z - activeGrid.gapSize * 0.5f && mouseWorldPos.z < gridPos.z + activeGrid.gapSize * 0.5f)
                 {
-                    //highlighter.gameObject.SetActive(true);
-                    //highlighter.position = gridPos + Vector3.down * 0.6f;
-
                     currentX = x;
                     currentY = y;
 
@@ -85,9 +80,6 @@ public class GS_PlaceDice : GameState
         }
 
         fieldSelected = _fieldSelected;
-        //if (!fieldSelected) {
-        //    highlighter.gameObject.SetActive(false);
-        //}
     }
 
     private void placeDie()
@@ -101,7 +93,6 @@ public class GS_PlaceDice : GameState
 
             Player otherPlayer = GameManager.current.players[(activePlayer.playerID + 1) % 2];
             DieFieldGrid otherGrid = fieldGrids[otherPlayer.playerID];
-
 
             activeDie.attackBoard(activePlayer, otherPlayer, currentX, currentY);
 
@@ -121,6 +112,7 @@ public class GS_PlaceDice : GameState
             }
 
             initialized = false;
+            buttonAudioSource.Play();
             StartCoroutine("exitWithDelay");
         }
     }

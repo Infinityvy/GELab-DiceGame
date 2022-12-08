@@ -10,6 +10,9 @@ public class GS_DrawDice : GameState
     public GameObject currentUI;
     public GameObject rollButton;
 
+    public AudioClip[] audioClips;
+    public AudioSource buttonAudioSource;
+
     private bool initialized = false;
 
     private Die[] drawnDice;
@@ -31,6 +34,9 @@ public class GS_DrawDice : GameState
     {
         activePlayer = GameManager.current.activePlayer;
         CameraManager.current.setPositionByName("Player" + activePlayer.playerID);
+
+        buttonAudioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
+
 
         drawnDice = new Die[3];
         diceToAnimate = new bool[drawnDice.Length];

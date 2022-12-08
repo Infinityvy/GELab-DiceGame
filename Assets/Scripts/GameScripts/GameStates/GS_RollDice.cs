@@ -7,6 +7,9 @@ public class GS_RollDice : GameState
     //publics
     public Transform rollPos;
 
+    public AudioSource buttonAudioSource;
+    public AudioClip[] audioClips;
+
     //privates
     private Player activePlayer;
     private Die[] dice;
@@ -27,6 +30,8 @@ public class GS_RollDice : GameState
         activePlayer = GameManager.current.activePlayer;
         CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Bowl");
         this.dice = dice;
+
+        buttonAudioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
 
         diceToMove = new bool[dice.Length];
 
