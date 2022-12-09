@@ -49,7 +49,7 @@ public class Player
     /// <summary>
     /// Adds all elements in the players discard sack to the draw sack and clears the discard sack.
     /// </summary>
-    public void refillDrawSack() //empties the discard sack into the draw sack
+    public void refillDrawSack()
     {
         drawSack.AddRange(discardSack);
         discardSack = new List<Die>();
@@ -64,7 +64,7 @@ public class Player
     /// Removes a die from the players draw sack and returns it.
     /// </summary>
     /// <returns></returns>
-    public Die drawDie() //draws and removes die from draw sack
+    public Die drawDie()
     {
         int rndIndex = Random.Range(0, drawSack.Count);
         Die drawnDie = drawSack[rndIndex];
