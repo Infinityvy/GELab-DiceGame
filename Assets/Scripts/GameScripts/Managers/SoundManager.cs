@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -42,10 +39,14 @@ public class SoundManager : MonoBehaviour
 
     public void OnMusicVolumeSliderChange(float value) {
         musicVolume = value;
+        UpdateMixerVolume();
+        Save();
     }
 
     public void OnSFXVolumeSliderChange(float value) {
         sfxVolume = value;
+        UpdateMixerVolume();
+        Save();
     }
 
     public void UpdateMixerVolume() {   // convert to decibel with mathf
