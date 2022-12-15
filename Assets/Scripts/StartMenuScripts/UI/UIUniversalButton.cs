@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class UIUniversalButton : MonoBehaviour
 {
@@ -13,20 +14,35 @@ public class UIUniversalButton : MonoBehaviour
         SoundAssets.AddSFX(audioSource);
     }
 
-    public void GotoMenu(UIMenu toMenu)
-    {
-        if (toMenu == null)
-            return;
-        toMenu.Init();
+    public void GotoMenu(UIMenu toMenu) {
+        if (toMenu != null)
+            toMenu.Init();
         GetComponentInParent<UIMenu>().Exit();
     }
+
+    public void LoadMainMenu() {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LoadDeckLibrary() {
+        SceneManager.LoadScene("DeckLibrary");
+    }
+
+    public void LoadGame() {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void Continue() {
+        Time.timeScale = 1.0f;
+        GetComponentInParent<UIMenu>().Exit();
+    }
+
 
     public void QuitGame() {
         Application.Quit();
     }
 
-    public void MoveDie(Transform die)
-    {
+    public void MoveDie(Transform die) {
         if (die != null) {
             EventSystem.current.SetSelectedGameObject(gameObject);
             float objectWidth = GetComponent<RectTransform>().rect.width * GetComponentInParent<Canvas>().transform.localScale.x;
@@ -36,14 +52,12 @@ public class UIUniversalButton : MonoBehaviour
         }
     }
 
-    public void EnableSelector(GameObject selector)
-    {
+    public void EnableSelector(GameObject selector) {
         EventSystem.current.SetSelectedGameObject(gameObject);
         selector.SetActive(true);
     }
 
-    public void DisableSelector(GameObject selector)
-    {
+    public void DisableSelector(GameObject selector) {
         selector.SetActive(false);
     }
 
