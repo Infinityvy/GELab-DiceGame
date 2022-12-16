@@ -33,6 +33,7 @@ public class DieObject : MonoBehaviour
             copiedDisintMaterials[i] = new Material(disintMaterials[i].shader);
             copiedDisintMaterials[i].CopyPropertiesFromMaterial(disintMaterials[i]);
         }
+
     }
 
 

@@ -55,6 +55,7 @@ public class UIUniversalButton : MonoBehaviour
     public void EnableSelector(GameObject selector) {
         EventSystem.current.SetSelectedGameObject(gameObject);
         selector.SetActive(true);
+        
     }
 
     public void DisableSelector(GameObject selector) {
