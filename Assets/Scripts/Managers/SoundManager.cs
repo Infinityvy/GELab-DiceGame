@@ -32,8 +32,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void ChangeMasterVolume() {
-        AudioListener.volume = masterVolumeSlider.value;
+    public void ChangeMasterVolume(float value) {
+        AudioListener.volume = value;
         Save();
     }
 
@@ -54,12 +54,18 @@ public class SoundManager : MonoBehaviour
         sfxMixerGroup.audioMixer.SetFloat("SFX Volume", Mathf.Log10(sfxVolume) * 20);
     }
 
+    /// <summary>
+    /// Loads the values of the volume sliders into the sliders.
+    /// </summary>
     public void Load() {
         masterVolumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
         musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfxVolume");
     }
 
+    /// <summary>
+    /// Saves the values of the volume sliders.
+    /// </summary>
     public void Save() {
         PlayerPrefs.SetFloat("masterVolume", masterVolumeSlider.value);
         PlayerPrefs.SetFloat("musicVolume", musicVolumeSlider.value);

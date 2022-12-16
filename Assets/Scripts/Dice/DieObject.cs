@@ -94,7 +94,7 @@ public class DieObject : MonoBehaviour
     {
         float volume = audioSource.volume;
         volume *= dieRigid.velocity.magnitude * 0.03f;
-        volume = Mathf.Clamp(volume, 0, 1.2f);
+        volume = Mathf.Clamp(volume, 0, audioSource.volume * 1.2f);
         audioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)], volume);
     }
 }

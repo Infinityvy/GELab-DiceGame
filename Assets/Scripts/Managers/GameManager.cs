@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,11 +9,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager current;
 
+    /// <summary>
+    /// Wether or not the game is paused.
+    /// </summary>
+    public static bool paused = false;
+
     //public
     /// <summary>
-    /// The side length of the die grids. Field amount will be gridSize * gridSize.
+    /// The side length of the die grids. Field amount will be gridSize * gridSize. (readonly)
     /// </summary>
-    public static int gridSize = 3;
+    public static int gridSize { get; } = 3;
 
 
     public Player[] players = new Player[2];
@@ -27,12 +31,6 @@ public class GameManager : MonoBehaviour
     public GameStateRef[] gameStateRefs;
 
     //private
-
-    /// <summary>
-    /// The corresponding die grids for each player. The index matches the player ID.
-    /// </summary>
-    [SerializeField] private DieFieldGrid[] dieFields = new DieFieldGrid[2]; 
-
     private int roundNr = 0;
 
     private Die testDie_D6;
@@ -45,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //if (players[0] == null || players[1] == null) return/*ERROR*/;
         players[0] = new Player(0);
         players[0].initDicePiles();
         players[1] = new Player(1);
@@ -65,12 +62,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //reload scene
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R))
-        {
-            Scene activeScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(activeScene.name);
-        }
+        
     }
 
     /// <summary>
@@ -138,16 +130,4 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-}
-
-public enum GameStateName
-{
-    DrawDice, RollDice, ChooseDice, PlaceDice
-}
-
-[System.Serializable]
-public struct GameStateRef
-{
-    public GameStateName name;
-    public GameState gameState;
 }

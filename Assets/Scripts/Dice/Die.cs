@@ -6,21 +6,43 @@ using UnityEngine;
 public abstract class Die
 {
     //public
-    public abstract int id { get; } //id of the die
-    public abstract string meshName { get; } //name of the mesh the die wants to use
-    public abstract string dieName { get; } //display name of the die
-    public abstract string description { get; } //description of the die
-
+    /// <summary>
+    /// The ID of the die type. (readonly)
+    /// </summary>
+    public abstract int id { get; }
+    /// <summary>
+    /// The name of the mesh the die wants to use. (readonly)
+    /// </summary>
+    public abstract string meshName { get; }
+    /// <summary>
+    /// The display name of the die. (readonly)
+    /// </summary>
+    public abstract string dieName { get; }
+    /// <summary>
+    /// The description of the die. (readonly)
+    /// </summary>
+    public abstract string description { get; }
+    /// <summary>
+    /// The active score of the die. Depends on active face value and the die grid it is currently in.
+    /// </summary>
     public int activeScore { get; protected set; } = -1;
+    /// <summary>
+    /// The face the die rolled.
+    /// </summary>
     public int activeFaceValue { get; protected set; } = -1;
 
     public Transform transform;
+    /// <summary>
+    /// Wether or not this die is connected to a transform. (readonly)
+    /// </summary>
     public bool transformInitiated { get; protected set; } = false;
 
     //protected
     protected abstract int facecount { get; }
-    protected abstract Quaternion activeFaceRot { get; set; } //the rotation needed so that the active face is on top
-
+    /// <summary>
+    /// The rotation needed so that the active face is on top.
+    /// </summary>
+    protected abstract Quaternion activeFaceRot { get; set; }
     protected bool rollModeEnabled 
     { 
         get { return _rollModeEnabled; }

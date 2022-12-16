@@ -11,7 +11,6 @@ public class GS_DrawDice : GameState
     public GameObject rollButton;
 
     public AudioClip[] audioClips;
-    public AudioSource buttonAudioSource;
 
     private bool initialized = false;
 
@@ -35,7 +34,8 @@ public class GS_DrawDice : GameState
         activePlayer = GameManager.current.activePlayer;
         CameraManager.current.setPositionByName("Player" + activePlayer.playerID);
 
-        buttonAudioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
+        GetComponent<AudioSource>().clip = audioClips[Random.Range(0, audioClips.Length)];
+        GetComponent<AudioSource>().Play();
 
 
         drawnDice = new Die[3];
@@ -57,6 +57,7 @@ public class GS_DrawDice : GameState
         buttPos = rollButton.transform.position;
 
         StartCoroutine("animateDraw");
+
         if(activePlayer.getDrawSackSize() < 3)
         {
             activePlayer.refillDrawSack();
@@ -84,7 +85,7 @@ public class GS_DrawDice : GameState
 
     private void Update()
     {
-        if (!initialized) return;
+        if (!initialized || GameManager.paused) return;
 
         highlightDie();
     }

@@ -21,14 +21,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GridFrameMat
-  m_Shader: {fileID: -6465566751694194690, guid: 69ea497d7a541964bb123c9af151d159, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -123,16 +124,16 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Color: {r: 0.9716981, g: 0.29792625, b: 0.29792625, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.3584906, g: 0.22587386, b: 0.08962265, a: 1}
+    - _Base_Color: {r: 0.27450982, g: 0.12156863, b: 0, a: 0}
+    - _Color: {r: 0.35849056, g: 0.22587383, b: 0.089622624, a: 1}
     - _Color_1: {r: 0.32249996, g: 0.29803926, b: 0.972549, a: 0}
     - _Color_2: {r: 0.38527936, g: 0.6981132, b: 0.6232009, a: 0}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Inner_Color: {r: 0.4538022, g: 0.972549, b: 0.2980393, a: 0}
+    - _Inner_Color: {r: 0.32156864, g: 0.227451, b: 0.015686275, a: 0}
     - _Light_Pos: {r: -10, g: 10, b: -10, a: 0}
-    - _Middle_Color: {r: 0.2980393, g: 0.7561489, b: 0.972549, a: 0}
-    - _Outer_Color: {r: 0.8528327, g: 0.2980393, b: 0.972549, a: 0}
+    - _Middle_Color: {r: 0.36078432, g: 0.21960784, b: 0.019607844, a: 0}
+    - _Outer_Color: {r: 0.32156864, g: 0.0627451, b: 0.015686275, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

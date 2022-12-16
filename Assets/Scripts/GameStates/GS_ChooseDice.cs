@@ -32,7 +32,8 @@ public class GS_ChooseDice : GameState
         CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
         alignementPos = CameraManager.current.currentPosition;
 
-        buttonAudioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
+        GetComponent<AudioSource>().clip = audioClips[Random.Range(0, audioClips.Length)];
+        GetComponent<AudioSource>().Play();
 
         for (int i = 0; i < dice.Length; i++)
         {
@@ -68,7 +69,7 @@ public class GS_ChooseDice : GameState
 
     private void Update()
     {
-        if (!initiated) return;
+        if (!initiated || GameManager.paused) return;
 
         if (!eagleEyeActive && !enemyBoardEyeActive && !boardEyeActive) highlightDie();
         else if (tooltip.gameObject.activeSelf || selectedDieIndex != -1)

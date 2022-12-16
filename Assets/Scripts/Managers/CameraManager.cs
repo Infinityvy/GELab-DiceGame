@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public struct CameraPosition
-{
-    public string name;
-    public Vector3 pos;
-    public Vector3 rot;
-}
-
 public class CameraManager : MonoBehaviour
 {
+    /// <summary>
+    /// The currently active CameraManager.
+    /// </summary>
     public static CameraManager current;
 
     public CameraPosition[] positions;

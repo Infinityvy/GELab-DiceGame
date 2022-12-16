@@ -7,12 +7,14 @@ public class GS_RollDice : GameState
     //publics
     public Transform rollPos;
 
-    public AudioSource buttonAudioSource;
     public AudioClip[] audioClips;
 
     //privates
     private Player activePlayer;
     private Die[] dice;
+
+    private Quaternion currentRollRot;
+    private Vector3 currentRollPos;
 
     private bool[] diceToMove;
     private float moveDelay = 0.4f;
@@ -31,7 +33,17 @@ public class GS_RollDice : GameState
         CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Bowl");
         this.dice = dice;
 
-        buttonAudioSource.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
+        GetComponent<AudioSource>().clip = audioClips[Random.Range(0, audioClips.Length)];
+        GetComponent<AudioSource>().Play();
+
+        currentRollRot = rollPos.rotation;
+        currentRollPos = rollPos.position;
+
+        if (activePlayer.playerID == 1)
+        {
+            currentRollRot = Quaternion.Euler(currentRollRot.eulerAngles.x, -currentRollRot.eulerAngles.y, currentRollRot.eulerAngles.z);
+            currentRollPos.x = -currentRollPos.x;
+        }
 
         diceToMove = new bool[dice.Length];
 
@@ -61,13 +73,14 @@ public class GS_RollDice : GameState
 
     private void moveDice()
     {
+
         for (int i = 0; i < dice.Length; i++)
         {
             if (diceToMove[i])
             {
-                dice[i].transform.position = Vector3.Lerp(dice[i].transform.position, rollPos.position, animationSpeed / Vector3.Distance(dice[i].transform.position, rollPos.position));
+                dice[i].transform.position = Vector3.Lerp(dice[i].transform.position, currentRollPos, animationSpeed / Vector3.Distance(dice[i].transform.position, currentRollPos));
 
-                if (Vector3.Distance(dice[i].transform.position, rollPos.position) < 0.001f)
+                if (Vector3.Distance(dice[i].transform.position, currentRollPos) < 0.001f)
                 {
                     if (i == dice.Length - 1)
                     {
@@ -75,15 +88,15 @@ public class GS_RollDice : GameState
                         StartCoroutine("waitForRollingDice");
                     }
 
-                        diceToMove[i] = false;
+                    diceToMove[i] = false;
 
                     dice[i].setIdleRotation(false);
-                    dice[i].roll(rollPos.rotation * Quaternion.Euler(Random.Range(0, maxSpreadAngle),
-                                                                             Random.Range(0, maxSpreadAngle),
-                                                                             Random.Range(0, maxSpreadAngle)) * Vector3.forward * Random.Range(minTossStrength, maxTossStrength),
-                                                                             new Vector3(Random.Range(0, maxTorqueStrength),
-                                                                                         Random.Range(0, maxTorqueStrength),
-                                                                                         Random.Range(0, maxTorqueStrength)));
+                    dice[i].roll(currentRollRot * Quaternion.Euler(Random.Range(0, maxSpreadAngle),
+                                                                     Random.Range(0, maxSpreadAngle),
+                                                                     Random.Range(0, maxSpreadAngle)) * Vector3.forward * Random.Range(minTossStrength, maxTossStrength),
+                                                                     new Vector3(Random.Range(0, maxTorqueStrength),
+                                                                                 Random.Range(0, maxTorqueStrength),
+                                                                                 Random.Range(0, maxTorqueStrength)));
                 }
             }
         }

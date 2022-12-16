@@ -45,7 +45,7 @@ public class GS_PlaceDice : GameState
 
     private void Update() 
     {
-        if (!initialized) return;
+        if (!initialized || GameManager.paused) return;
         highlightField();
 
         activeDie.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y ,Camera.main.transform.position.y - activeGrid.transform.position.y));
