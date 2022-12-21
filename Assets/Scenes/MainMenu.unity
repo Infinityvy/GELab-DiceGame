@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0009780765, g: 0.0013401323, b: 0.002829816, a: 1}
+  m_IndirectSpecularColor: {r: 0.00089015363, g: 0.001340671, b: 0.0028307931, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3549,6 +3549,38 @@ PrefabInstance:
     - target: {fileID: 1499069731554252317, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 760
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 380
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585054409758449097, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3366847839529515401, guid: 7c984faf4ba8d3b4bbba69ad40ccd3bc, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

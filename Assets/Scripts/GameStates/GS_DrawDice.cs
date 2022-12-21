@@ -73,8 +73,7 @@ public class GS_DrawDice : GameState
         initialized = false;
         CancelInvoke();
 
-        for(int i = 0; i < drawnDice.Length; i++)
-        {
+        for (int i = 0; i < drawnDice.Length; i++) {
             drawnDice[i].transform.position = getTargetPosition(i);
         }
 
