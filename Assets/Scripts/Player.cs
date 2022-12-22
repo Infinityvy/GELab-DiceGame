@@ -24,9 +24,9 @@ public class Player
 
         for(int i = 0; i < 5; i++)
         {
-            activeDeck.addDie(new Die_Normal_Default_D6());
-            activeDeck.addDie(new Die_Normal_Highroll_D6());
-            activeDeck.addDie(new Die_Normal_Midroll_D4());
+            activeDeck.addDie(new Die_Normal_Default_D6(playerID));
+            activeDeck.addDie(new Die_Normal_Highroll_D6(playerID));
+            activeDeck.addDie(new Die_Normal_Midroll_D4(playerID));
         }
 
         

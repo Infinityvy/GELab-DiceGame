@@ -13,6 +13,10 @@ public class Die_Normal_Default_D6 : Die
 
     protected override Quaternion activeFaceRot { get; set; }
 
+    public Die_Normal_Default_D6(int playerID)
+    {
+        this.playerID = playerID;
+    }
 
     protected override void setActiveFaceValue() //calculates top face by comparing the height of the center point of all faces; highest point is the top face; sets face value accordingly
     {

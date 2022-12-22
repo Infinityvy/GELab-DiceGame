@@ -13,6 +13,11 @@ public class Die_Normal_Midroll_D4 : Die
 
     protected override int facecount { get; } = 4;
 
+    public Die_Normal_Midroll_D4(int playerID)
+    {
+        this.playerID = playerID;
+    }
+
     protected override void setActiveFaceValue() //calculates bottom face by comparing the height of the center point of all faces; lowest point is the bottom face; sets face value accordingly
     {
         //faces in order: back (z = -1), left (x = -1), right (x = 1), bottom (y = -1)

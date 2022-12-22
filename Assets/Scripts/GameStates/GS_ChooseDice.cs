@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GS_ChooseDice : GameState
 {
+    public GameObject currentUI;
     public AudioSource buttonAudioSource;
     public AudioClip[] audioClips;
 
@@ -43,6 +44,8 @@ public class GS_ChooseDice : GameState
 
         InvokeRepeating("moveDice", 0.01f, 0.01f);
 
+        currentUI.SetActive(true);
+
         initiated = true;
     }
 
@@ -56,6 +59,7 @@ public class GS_ChooseDice : GameState
 
         buttonAudioSource.Play();
         tooltip.gameObject.SetActive(false);
+        currentUI.SetActive(false);
 
         for (int i = 0; i < dice.Length; i++)
         {

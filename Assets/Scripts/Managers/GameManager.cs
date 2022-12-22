@@ -102,10 +102,10 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spawnPos = new Vector3(0, 4, -8);
 
-        testDie_D6 = new Die_Normal_Default_D6();
+        testDie_D6 = new Die_Normal_Default_D6(0);
         testDie_D6.init_Transform();
 
-        testDie_D4 = new Die_Normal_Midroll_D4();
+        testDie_D4 = new Die_Normal_Midroll_D4(0);
         testDie_D4.init_Transform();
 
         testDie_D6.roll(Vector3.forward * 20, Vector3.one * 20);
@@ -119,10 +119,10 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(0, 4, 0);
 
 
-        testDie_D6 = new Die_Normal_Default_D6();
+        testDie_D6 = new Die_Normal_Default_D6(0);
         testDie_D6.init_Transform();
 
-        testDie_D4 = new Die_Normal_Midroll_D4();
+        testDie_D4 = new Die_Normal_Midroll_D4(0);
         testDie_D4.init_Transform();
 
         testDie_D6.setIdleRotation(true);

@@ -11,6 +11,10 @@ public abstract class Die
     /// </summary>
     public abstract int id { get; }
     /// <summary>
+    /// The player ID of the player this die belongs to.
+    /// </summary>
+    public int playerID = 0;
+    /// <summary>
     /// The name of the mesh the die wants to use. (readonly)
     /// </summary>
     public abstract string meshName { get; }
@@ -73,6 +77,20 @@ public abstract class Die
             dieObject = transform.GetComponent<DieObject>();
             dieRigidbody = transform.GetComponent<Rigidbody>();
             rollModeEnabled = false;
+
+            Material[] dieMats = dieObject.GetComponent<MeshRenderer>().materials;
+            for(int i = 0; i < dieMats.Length; i++)
+            {
+                if(dieMats[i].name.Contains("DieGlow"))
+                {
+                    dieMats[i] = (Material)Resources.Load("Player" + playerID + "Glow");
+                }
+                else if(dieMats[i].name.Contains("DieInnerFaceMat"))
+                {
+                    dieMats[i] = (Material)Resources.Load("Player" + playerID + "Mat");
+                }
+            }
+            dieObject.GetComponent<MeshRenderer>().materials = dieMats;
 
             setFaceNumbers();
         }
