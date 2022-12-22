@@ -21,6 +21,7 @@ public class UIUniversalButton : MonoBehaviour
     }
 
     public void LoadMainMenu() {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("MainMenu");
     }
 

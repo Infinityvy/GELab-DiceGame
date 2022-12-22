@@ -24,11 +24,15 @@ public class SoundManager : MonoBehaviour
         Load();
 
         for (int i = 0; i < SoundAssets.MusicSources.Count; i++) {
-            SoundAssets.MusicSources[i].outputAudioMixerGroup = musicMixerGroup;
+            if (SoundAssets.MusicSources[i]) {
+                SoundAssets.MusicSources[i].outputAudioMixerGroup = musicMixerGroup;
+            }
         }
 
         for (int i = 0; i < SoundAssets.SFXSources.Count; i++) {
-            SoundAssets.SFXSources[i].outputAudioMixerGroup = sfxMixerGroup;
+            if (SoundAssets.SFXSources[i]) {
+                SoundAssets.SFXSources[i].outputAudioMixerGroup = sfxMixerGroup;
+            }
         }
     }
 
