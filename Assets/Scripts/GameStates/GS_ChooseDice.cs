@@ -15,7 +15,7 @@ public class GS_ChooseDice : GameState
     private float gapSize = 1.5f;
     private float animationSpeed = 0.3f;
     private bool movedDice = false;
-    private int activePlayerID;
+    private Player activePlayer;
     private CameraPosition alignementPos;
 
     private bool eagleEyeActive = false;
@@ -29,8 +29,8 @@ public class GS_ChooseDice : GameState
     public override void init(Die[] dice)
     {
         this.dice = dice;
-        activePlayerID = GameManager.current.activePlayerID;
-        CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+        activePlayer = GameManager.current.activePlayer;
+        CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "BowlTop");
         alignementPos = CameraManager.current.currentPosition;
 
         GetComponent<AudioSource>().clip = audioClips[Random.Range(0, audioClips.Length)];
@@ -38,13 +38,17 @@ public class GS_ChooseDice : GameState
 
         for (int i = 0; i < dice.Length; i++)
         {
-            dice[i].rotateToActiveFace(activePlayerID);
+            dice[i].rotateToActiveFace(activePlayer.playerID);
             //Debug.Log(dice[i].dieName + " has rolled a " + dice[i].activeFaceValue);
         }
 
         InvokeRepeating("moveDice", 0.01f, 0.01f);
 
         currentUI.SetActive(true);
+
+        eagleEyeActive = false;
+        enemyBoardEyeActive = false;
+        boardEyeActive = false;
 
         initiated = true;
     }
@@ -106,7 +110,7 @@ public class GS_ChooseDice : GameState
                 movedDice = false;
             }
 
-            dice[i].transform.position = Vector3.Lerp(dice[i].transform.position, targetPos, animationSpeed / Vector3.Distance(dice[i].transform.position, targetPos));
+            dice[i].transform.position = Vector3.Slerp(dice[i].transform.position, targetPos, animationSpeed / Vector3.Distance(dice[i].transform.position, targetPos));
         }
 
         if (movedDice) CancelInvoke();
@@ -122,7 +126,7 @@ public class GS_ChooseDice : GameState
             {
                 selectedDieIndex = i;
                 tooltip.gameObject.SetActive(true);
-                tooltip.position = Camera.main.WorldToScreenPoint(dice[i].transform.position + Vector3.left * (1 - 2 * activePlayerID));
+                tooltip.position = Camera.main.WorldToScreenPoint(dice[i].transform.position + Vector3.left * (1 - 2 * activePlayer.playerID));
 
                 tooltip.GetComponentInChildren<Tooltip>().title.text = dice[i].dieName;
                 tooltip.GetComponentInChildren<Tooltip>().description.text = dice[i].description;
@@ -140,15 +144,17 @@ public class GS_ChooseDice : GameState
     {
         if (eagleEyeActive)
         {
-            CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+            CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "BowlTop");
+            boardEyeActive = false;
+            enemyBoardEyeActive = false;
             eagleEyeActive = false;
         }
         else
         {
-            CameraManager.current.setPositionByName("Player" + activePlayerID + "EagleEye");
-            eagleEyeActive = true;
-            enemyBoardEyeActive = false;
+            CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "EagleEye");
             boardEyeActive = false;
+            enemyBoardEyeActive = false;
+            eagleEyeActive = true;
         }
     }
 
@@ -156,15 +162,17 @@ public class GS_ChooseDice : GameState
     {
         if (enemyBoardEyeActive)
         {
-            CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+            CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "BowlTop");
+            boardEyeActive = false;
             enemyBoardEyeActive = false;
+            eagleEyeActive = false;
         }
         else
         {
-            CameraManager.current.setPositionByName("Player" + (activePlayerID + 1) % 2 + "Grid");
+            CameraManager.current.setPositionByName("Player" + (activePlayer.playerID + 1) % 2 + "Grid");
+            boardEyeActive = false;
             enemyBoardEyeActive = true;
             eagleEyeActive = false;
-            boardEyeActive = false;
         }
     }
 
@@ -172,12 +180,14 @@ public class GS_ChooseDice : GameState
     {
         if (boardEyeActive)
         {
-            CameraManager.current.setPositionByName("Player" + activePlayerID + "BowlTop");
+            CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "BowlTop");
             boardEyeActive = false;
+            enemyBoardEyeActive = false;
+            eagleEyeActive = false;
         }
         else
         {
-            CameraManager.current.setPositionByName("Player" + activePlayerID + "Grid");
+            CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
             boardEyeActive = true;
             enemyBoardEyeActive = false;
             eagleEyeActive = false;

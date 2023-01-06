@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +13,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Wether or not the game is paused.
     /// </summary>
-    public static bool paused = false;
+    public static bool paused;
 
-    //public
     /// <summary>
     /// The side length of the die grids. Field amount will be gridSize * gridSize. (readonly)
     /// </summary>
@@ -30,11 +30,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameStateRef[] gameStateRefs;
 
-    //private
-    private int roundNr = 0;
+    public GameState activeGameState;
 
-    private Die testDie_D6;
-    private Die testDie_D4;
+    public GameOverlayController gameOverlay;
+    public GameObject gameEndedScreen;
+
+    //private
+    public int roundNr { get; private set; } = 0;
 
     private void Awake()
     {
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        paused = false;
+
         players[0] = new Player(0);
         players[0].initDicePiles();
         players[1] = new Player(1);
@@ -50,12 +54,7 @@ public class GameManager : MonoBehaviour
 
         activePlayer = players[activePlayerID];
 
-        //TestRollingDice();
-        //TestIdleDice();
-
-        //testDie_D6 = new Die_Normal_Default_D6();
-        //testDie_D6.init_Transform();
-        //Die[] testDice = { testDie_D6 };
+        gameOverlay.setActivePlayerDisplay(0);
 
         callGameState(GameStateName.DrawDice, null);
     }
@@ -66,7 +65,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Calls a GameState.
+    /// Calls a GameState by its name.
     /// </summary>
     /// <param name="name"></param>
     /// <param name="dice"></param>
@@ -76,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             if(name == gameStateRefs[i].name)
             {
+                activeGameState = gameStateRefs[i].gameState;
                 gameStateRefs[i].gameState.init(dice);
                 return;
             }
@@ -84,50 +84,80 @@ public class GameManager : MonoBehaviour
         throw new System.Exception("No GameState named \"" + name + "\" found.");
     }
 
+    /// <summary>
+    /// Ends the round and checks if winning conditions are met. Otherwise starts the next round.
+    /// </summary>
     public void endRound()
     {
-        roundNr++;
+        //put win condition calculation here and end game if needed
+
+        bool player0Full = true;
+        bool player1Full = true;
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                if (players[0].dieFields[x, y] == null) player0Full = false;
+                if (players[1].dieFields[x, y] == null) player1Full = false;
+            }
+        }
+
+        if (player0Full || player1Full)
+        {
+            endGame();
+            return;
+        }
+
+        
         activePlayer = players[(activePlayerID + 1) % 2];
         activePlayerID = activePlayer.playerID;
+        gameOverlay.setActivePlayerDisplay(activePlayerID);
 
-        //put win condition calculation here and end game if needed
+        if (activePlayerID == 0)
+        {
+            roundNr++;
+            gameOverlay.setRoundNr(roundNr);
+        }
+            
+
 
         callGameState(GameStateName.DrawDice, null);
     }
 
-
-
-    #region testing
-    private void TestRollingDice()
+    /// <summary>
+    /// End the game and determines the winner.
+    /// </summary>
+    private void endGame()
     {
-        Vector3 spawnPos = new Vector3(0, 4, -8);
+        CameraManager.current.setPositionByName("Player" + activePlayerID + "EagleEye");
 
-        testDie_D6 = new Die_Normal_Default_D6(0);
-        testDie_D6.init_Transform();
+        gameEndedScreen.SetActive(true);
 
-        testDie_D4 = new Die_Normal_Midroll_D4(0);
-        testDie_D4.init_Transform();
+        int scoreDifference = players[0].totalScore - players[1].totalScore;
 
-        testDie_D6.roll(Vector3.forward * 20, Vector3.one * 20);
-        testDie_D4.roll(Vector3.forward * 10, Vector3.one * 40);
+        Text winnerText = gameEndedScreen.transform.GetChild(0).GetComponent<Text>();
 
-        InvokeRepeating("readDiceData", 0.5f, 0.5f);
+        if (scoreDifference == 0)
+        {
+            winnerText.text = "It's a tie!";
+            return;
+        }
+
+        string winnerMessage = " wins with a NARROW victory!";
+        int absScoreDifference = Mathf.Abs(scoreDifference);
+
+        if (absScoreDifference > 48) winnerMessage = " wins with a LANDSLIDE victory!";
+        else if (absScoreDifference > 24) winnerMessage = " wins with an OVERWHELMING victory!";
+        else if (absScoreDifference > 12) winnerMessage = " wins with DECENT victory!";
+
+
+        if(scoreDifference < 0) //player 1 wins
+        {
+            winnerText.text = "Player 1" + winnerMessage;
+        }
+        else if(scoreDifference > 0) //player 0 wins
+        {
+            winnerText.text = "Player 0" + winnerMessage;
+        }
     }
-
-    private void TestIdleDice()
-    {
-        Vector3 spawnPos = new Vector3(0, 4, 0);
-
-
-        testDie_D6 = new Die_Normal_Default_D6(0);
-        testDie_D6.init_Transform();
-
-        testDie_D4 = new Die_Normal_Midroll_D4(0);
-        testDie_D4.init_Transform();
-
-        testDie_D6.setIdleRotation(true);
-        testDie_D4.setIdleRotation(true);
-    }
-    #endregion
-
 }

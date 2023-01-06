@@ -8,11 +8,12 @@ public class SoundManager : MonoBehaviour
     public Slider sfxVolumeSlider;
     public Slider musicVolumeSlider;
 
+    public static float masterVolume { get; private set; }
     public static float musicVolume { get; private set; }
     public static float sfxVolume { get; private set; }
 
-    [SerializeField] private AudioMixerGroup musicMixerGroup;
-    [SerializeField] private AudioMixerGroup sfxMixerGroup;
+    public AudioMixerGroup musicMixerGroup;
+    public AudioMixerGroup sfxMixerGroup;
 
     private void Start() {
         if (!PlayerPrefs.HasKey("masterVolume"))
@@ -23,21 +24,22 @@ public class SoundManager : MonoBehaviour
             PlayerPrefs.SetFloat("sfxVolume", 1);
         Load();
 
-        for (int i = 0; i < SoundAssets.MusicSources.Count; i++) {
-            if (SoundAssets.MusicSources[i]) {
-                SoundAssets.MusicSources[i].outputAudioMixerGroup = musicMixerGroup;
-            }
-        }
+        //for (int i = 0; i < SoundAssets.MusicSources.Count; i++) {
+        //    if (SoundAssets.MusicSources[i]) {
+        //        SoundAssets.MusicSources[i].outputAudioMixerGroup = musicMixerGroup;
+        //    }
+        //}
 
-        for (int i = 0; i < SoundAssets.SFXSources.Count; i++) {
-            if (SoundAssets.SFXSources[i]) {
-                SoundAssets.SFXSources[i].outputAudioMixerGroup = sfxMixerGroup;
-            }
-        }
+        //for (int i = 0; i < SoundAssets.SFXSources.Count; i++) {
+        //    if (SoundAssets.SFXSources[i]) {
+        //        SoundAssets.SFXSources[i].outputAudioMixerGroup = sfxMixerGroup;
+        //    }
+        //}
     }
 
-    public void ChangeMasterVolume(float value) {
-        AudioListener.volume = value;
+    public void OnMasterVolumeSliderChange(float value) {
+        masterVolume = value;
+        AudioListener.volume = masterVolume;
         Save();
     }
 
@@ -59,21 +61,28 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads the values of the volume sliders into the sliders.
+    /// Loads volume values saved from a previous session.
     /// </summary>
     public void Load() {
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("masterVolume");
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfxVolume");
+        masterVolume = PlayerPrefs.GetFloat("masterVolume");
+        musicVolume = PlayerPrefs.GetFloat("musicVolume");
+        sfxVolume = PlayerPrefs.GetFloat("sfxVolume");
+
+        masterVolumeSlider.value = masterVolume;
+        musicVolumeSlider.value = musicVolume;
+        sfxVolumeSlider.value = sfxVolume;
+
+        AudioListener.volume = masterVolume;
+        UpdateMixerVolume();
     }
 
     /// <summary>
-    /// Saves the values of the volume sliders.
+    /// Saves the values of the set volume values.
     /// </summary>
     public void Save() {
-        PlayerPrefs.SetFloat("masterVolume", masterVolumeSlider.value);
-        PlayerPrefs.SetFloat("musicVolume", musicVolumeSlider.value);
-        PlayerPrefs.SetFloat("sfxVolume", sfxVolumeSlider.value);
+        PlayerPrefs.SetFloat("masterVolume", masterVolume);
+        PlayerPrefs.SetFloat("musicVolume", musicVolume);
+        PlayerPrefs.SetFloat("sfxVolume", sfxVolume);
     }
 
     private void OnApplicationQuit() {

@@ -20,7 +20,7 @@ public class DieObject : MonoBehaviour
 
     private bool disintegrating = false;
     private float disintegration = 0.0f;
-    private float disintagrationSpeed = 0.7f;
+    private float disintagrationSpeed = 0.3f;
 
     void Start()
     {
@@ -30,8 +30,7 @@ public class DieObject : MonoBehaviour
         copiedDisintMaterials = new Material[disintMaterials.Length];
         for(int i = 0; i < disintMaterials.Length; i++)
         {
-            copiedDisintMaterials[i] = new Material(disintMaterials[i].shader);
-            copiedDisintMaterials[i].CopyPropertiesFromMaterial(disintMaterials[i]);
+            copiedDisintMaterials[i] = new Material(disintMaterials[i]);
         }
 
     }
@@ -60,6 +59,10 @@ public class DieObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enables or disables a random idle rotation. Randomízes with each call.
+    /// </summary>
+    /// <param name="state"></param>
     public void setIdleRotation(bool state)
     {
         idleRotationEnabled = state;
@@ -79,15 +82,13 @@ public class DieObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initiates the disintegration animation and eventually destroys the GameObject.
+    /// </summary>
     public void destroy()
     {
         GetComponent<MeshRenderer>().materials = copiedDisintMaterials;
         disintegrating = true;
-
-        for (int i = 0; i < numbers.Length; i++)
-        {
-            numbers[i].enabled = false;
-        }
     }
 
     private void OnCollisionEnter(Collision collision)

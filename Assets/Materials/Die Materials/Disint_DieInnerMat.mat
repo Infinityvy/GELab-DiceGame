@@ -55,7 +55,7 @@ Material:
     - _QueueOffset: 0
     - _Smoothness: 0.5
     m_Colors:
-    - _Base_Color: {r: 0, g: 0.16078432, b: 0.83921576, a: 1}
-    - _Edge_Color: {r: 1.1361254, g: 0.3866396, b: 0.10706942, a: 0}
+    - _Base_Color: {r: 0.1308506, g: 0.03938234, b: 0.14150941, a: 1}
+    - _Edge_Color: {r: 4.544502, g: 1.5703515, b: 0.42827767, a: 0}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

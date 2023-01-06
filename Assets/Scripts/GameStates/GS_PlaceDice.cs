@@ -17,11 +17,12 @@ public class GS_PlaceDice : GameState
     private bool eagleEyeActive = false;
     private bool enemyBoardEyeActive = false;
     private bool boardEyeActive = false;
-    private float exitDelaySeconds = 1.5f;
+    private float exitDelaySeconds = 2.2f;
 
     // Publics:
     public DieFieldGrid[] fieldGrids;
     public AudioSource buttonAudioSource;
+    public bool destroyedDice;
 
     public override void init(Die[] dice)
     {
@@ -31,11 +32,20 @@ public class GS_PlaceDice : GameState
 
         CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
 
+        fieldSelected = false;
+
+        eagleEyeActive = false;
+        enemyBoardEyeActive = false;
+        boardEyeActive = false;
+
+        destroyedDice = false;
         initialized = true;
     }
 
     public override void exit()
     {
+        initialized = false;
+
         fieldSelected = false;
         eagleEyeActive = false;
         enemyBoardEyeActive = false;
@@ -111,9 +121,23 @@ public class GS_PlaceDice : GameState
                 otherGrid.rowScoreDisplays[i].text = otherPlayer.rowScores[i].ToString();
             }
 
-            initialized = false;
+            GameManager.current.gameOverlay.updateScore();
             buttonAudioSource.Play();
-            StartCoroutine("exitWithDelay");
+
+            if(destroyedDice) //if dice were destroyed, change camera to enemy board and delay exit
+            {
+                CameraManager.current.setPositionByName("Player" + (activePlayer.playerID + 1) % 2 + "Grid");
+                boardEyeActive = false;
+                enemyBoardEyeActive = true;
+                eagleEyeActive = false;
+
+                initialized = false;
+                StartCoroutine("exitWithDelay");
+            }
+            else
+            {
+                exit();
+            }
         }
     }
 
@@ -129,14 +153,16 @@ public class GS_PlaceDice : GameState
         if(eagleEyeActive)
         {
             CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
-            eagleEyeActive = false;
             boardEyeActive = true;
+            enemyBoardEyeActive = false;
+            eagleEyeActive = false;
         }
         else
         {
             CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "EagleEye");
-            eagleEyeActive = true;
+            boardEyeActive = false;
             enemyBoardEyeActive = false;
+            eagleEyeActive = true;
         }
     }
 
@@ -145,12 +171,14 @@ public class GS_PlaceDice : GameState
         if(enemyBoardEyeActive)
         {
             CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
-            enemyBoardEyeActive = false;
             boardEyeActive = true;
+            enemyBoardEyeActive = false;
+            eagleEyeActive = false;
         }
         else
         {
             CameraManager.current.setPositionByName("Player" + (activePlayer.playerID + 1) % 2 + "Grid");
+            boardEyeActive = false;
             enemyBoardEyeActive = true;
             eagleEyeActive = false;
         }
@@ -162,6 +190,8 @@ public class GS_PlaceDice : GameState
         {
             CameraManager.current.setPositionByName("Player" + activePlayer.playerID + "Grid");
             boardEyeActive = true;
+            enemyBoardEyeActive = false;
+            eagleEyeActive = false;
         }
         else
         {

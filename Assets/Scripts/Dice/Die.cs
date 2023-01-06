@@ -155,8 +155,10 @@ public abstract class Die
         {
             if(otherPlayer.dieFields[mirroredColumn, currentRow] != null && otherPlayer.dieFields[mirroredColumn, currentRow].activeFaceValue == activeFaceValue)
             {
-                GameManager.current.players[(activeFaceValue + 1) % 2].discardDie(otherPlayer.dieFields[mirroredColumn, currentRow]);
+                otherPlayer.discardDie(otherPlayer.dieFields[mirroredColumn, currentRow]);
                 otherPlayer.dieFields[mirroredColumn, currentRow] = null;
+
+                ((GS_PlaceDice)GameManager.current.activeGameState).destroyedDice = true;
             }
         }
     }

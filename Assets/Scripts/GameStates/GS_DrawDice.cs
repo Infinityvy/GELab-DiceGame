@@ -10,6 +10,9 @@ public class GS_DrawDice : GameState
     public GameObject currentUI;
     public GameObject rollButton;
 
+    public Transform player0DiceSpawnPos;
+    public Transform player1DiceSpawnPos;
+
     public AudioClip[] audioClips;
 
     private bool initialized = false;
@@ -22,8 +25,6 @@ public class GS_DrawDice : GameState
     //animation
     private float animationDelay = 0.2f;
     private float animationSpeed = 0.7f;
-
-    private Vector3 spawnPos = new Vector3(0, -10, -30);
 
     //tooltip
     public Transform tooltip;
@@ -51,7 +52,7 @@ public class GS_DrawDice : GameState
             drawnDice[i] = activePlayer.drawDie();
             drawnDice[i].init_Transform();
             drawnDice[i].setIdleRotation(true);
-            drawnDice[i].transform.position = spawnPos;
+            drawnDice[i].transform.position = (activePlayer.playerID == 0 ? player0DiceSpawnPos.position : player1DiceSpawnPos.position);
         }
 
         buttPos = rollButton.transform.position;
@@ -118,7 +119,7 @@ public class GS_DrawDice : GameState
                     CancelInvoke();
                 }
 
-                drawnDice[i].transform.position = Vector3.Lerp(drawnDice[i].transform.position, targetPos, animationSpeed / Vector3.Distance(drawnDice[i].transform.position, targetPos));
+                drawnDice[i].transform.position = Vector3.Slerp(drawnDice[i].transform.position, targetPos, animationSpeed / Vector3.Distance(drawnDice[i].transform.position, targetPos));
             }
         }
     }

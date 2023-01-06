@@ -78,7 +78,7 @@ public class GS_RollDice : GameState
         {
             if (diceToMove[i])
             {
-                dice[i].transform.position = Vector3.Lerp(dice[i].transform.position, currentRollPos, animationSpeed / Vector3.Distance(dice[i].transform.position, currentRollPos));
+                dice[i].transform.position = Vector3.Slerp(dice[i].transform.position, currentRollPos, animationSpeed / Vector3.Distance(dice[i].transform.position, currentRollPos));
 
                 if (Vector3.Distance(dice[i].transform.position, currentRollPos) < 0.001f)
                 {

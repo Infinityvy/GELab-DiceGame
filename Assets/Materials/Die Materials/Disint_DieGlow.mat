@@ -43,7 +43,7 @@ Material:
     - _Smoothness: 0.5
     m_Colors:
     - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Edge_Color: {r: 1.1361254, g: 0.39258787, b: 0.10706942, a: 0}
+    - _Edge_Color: {r: 4.544502, g: 1.5703515, b: 0.42827767, a: 0}
     - _Emission: {r: 20.958483, g: 8.915656, b: 4.718401, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6709281023089196910

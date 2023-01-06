@@ -258,6 +258,22 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
@@ -456,17 +472,33 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950539, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_Name
       value: Music Icon
       objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 75
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 75
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950541, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_Sprite
@@ -665,17 +697,33 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989209263635, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950539, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_Name
       value: SFX  Icon
       objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 75
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 75
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212186989435950540, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 4212186989435950541, guid: 46ff1bf0ee679664ea5cdc6c2c0835d0, type: 3}
       propertyPath: m_Sprite

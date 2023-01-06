@@ -16,6 +16,12 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public CameraPosition currentPosition { get; private set; }
 
+
+    private bool moving = false;
+    private float speed = 70f;
+    private float angularSpeed = 180f;
+    private float accuracy = 0.01f;
+
     private void Start()
     {
         current = this;
@@ -23,7 +29,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-
+        moveTowardsCurrentPosition();
     }
 
     /// <summary>
@@ -51,8 +57,24 @@ public class CameraManager : MonoBehaviour
     public void setPositionByIndex(int index)
     {
         currentPosition = positions[index];
+        moving = true;
 
-        transform.position = positions[index].pos;
-        transform.rotation = Quaternion.Euler(positions[index].rot);
+        //transform.position = positions[index].pos;
+        //transform.rotation = Quaternion.Euler(positions[index].rot);
+    }
+
+    private void moveTowardsCurrentPosition()
+    {
+        if(moving)
+        {
+            float posDistance = Vector3.Distance(transform.position, currentPosition.pos);
+            transform.position = Vector3.Slerp(transform.position, currentPosition.pos, (speed + posDistance) * Time.deltaTime / posDistance);
+
+            Quaternion targetRotation = Quaternion.Euler(currentPosition.rot);
+            float rotDistance = Quaternion.Angle(transform.rotation, targetRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (angularSpeed + 3 * rotDistance) * Time.deltaTime / rotDistance);
+
+            if (Vector3.Distance(transform.position, currentPosition.pos) < accuracy && Quaternion.Angle(transform.rotation, targetRotation) < accuracy) moving = false;
+        }
     }
 }
