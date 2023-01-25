@@ -67,4 +67,9 @@ public class UIUniversalButton : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    public void SetFullscreen(bool state)
+    {
+        Screen.fullScreen = state;
+    }
 }
