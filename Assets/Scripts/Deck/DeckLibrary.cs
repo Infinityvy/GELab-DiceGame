@@ -19,6 +19,7 @@ public class DeckLibrary : MonoBehaviour
     public Transform[] dieCards = new Transform[3];
 
 
+
     void Start()
     {
         int distance = 0;
